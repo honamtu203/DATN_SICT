@@ -18,6 +18,11 @@
         android:icon="@drawable/ic_report"
         android:iconTint="@color/orange"
         android:title="@string/report" />
+    <item
+        android:id="@+id/item_drawer_csv"
+        android:icon="@drawable/ic_excel"
+        android:iconTint="@color/orange"
+        android:title="Xuất file csv" />
     <group>
        <item android:title="@string/drawer_export">
            <menu>
