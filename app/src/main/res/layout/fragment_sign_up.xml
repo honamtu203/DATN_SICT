@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="listener"
+            type="com.qltc.finace.view.authentication.sign_up.SignUpListener" />
+        <variable
+            name="viewModel"
+            type="com.qltc.finace.view.authentication.sign_up.SignUpViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_logo_wallet" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/wallet"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/login_with_email"
+            android:layout_width="@dimen/dp327"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:layout_constraintVertical_bias="0.2">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                app:boxCornerRadiusBottomStart="@dimen/dp10"
+                app:boxCornerRadiusTopEnd="@dimen/dp10"
+                app:boxCornerRadiusTopStart="@dimen/dp10"
+                app:boxStrokeColor="@color/color_AFB0B6"
+                app:boxStrokeWidth="@dimen/dp1"
+                app:helperTextEnabled="true"
+                app:helperText="@{viewModel.errorEmail}"
+                app:helperTextTextColor="@color/red_d61c1c"
+                app:hintTextColor="@color/color_AFB0B6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_people"
+                    android:drawablePadding="@dimen/dp5"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/label_email"
+                    android:text="@={viewModel.emailInput}"
+                    android:lines="1"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center|start"
+                app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                app:boxCornerRadiusBottomStart="@dimen/dp10"
+                app:boxCornerRadiusTopEnd="@dimen/dp10"
+                app:boxCornerRadiusTopStart="@dimen/dp10"
+                app:boxStrokeColor="@color/grayish"
+                app:boxStrokeWidth="@dimen/dp1"
+                app:helperText="@{viewModel.errorPassword}"
+                app:helperTextTextColor="@color/red_d61c1c"
+                app:hintTextColor="@color/color_AFB0B6"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@={viewModel.passwordInput}"
+                    android:drawableStart="@drawable/ic_pass"
+                    android:drawablePadding="@dimen/dp5"
+                    android:hint="@string/label_password" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirm_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center|start"
+                app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                app:boxCornerRadiusBottomStart="@dimen/dp10"
+                app:boxCornerRadiusTopEnd="@dimen/dp10"
+                app:boxCornerRadiusTopStart="@dimen/dp10"
+                app:boxStrokeColor="@color/grayish"
+                app:boxStrokeWidth="@dimen/dp1"
+                app:helperText="@{viewModel.errorConfirmPassword}"
+                app:helperTextTextColor="@color/red_d61c1c"
+                app:hintTextColor="@color/color_AFB0B6"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@={viewModel.confirmPassword}"
+                    android:drawableStart="@drawable/ic_pass"
+                    android:drawablePadding="@dimen/dp5"
+                    android:hint="@string/label_re_password" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp30"
+                android:gravity="center"
+                android:onClick="@{ v -> listener.signUp()}"
+                android:enabled="@{viewModel.isEnableButtonSignUp()}"
+                android:paddingHorizontal="@dimen/dp30"
+                android:paddingVertical="@dimen/dp14"
+                android:text="Đăng ký" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <LinearLayout
+            android:id="@+id/sign_in_with_mxh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="@+id/login_with_email"
+            app:layout_constraintStart_toStartOf="@+id/login_with_email"
+            app:layout_constraintTop_toBottomOf="@id/login_with_email">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/login_with_google"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black90"
+                    android:paddingVertical="@dimen/dp10"
+                    android:text="Đăng ký với Google"
+                    android:onClick="@{v -> listener.openSignInGoogle()}"
+                    app:iconTint="@null"
+                    android:backgroundTint="@color/white"
+                    app:icon="@drawable/ic_google" />
+
+        </LinearLayout>
+
+        <com.google.android.material.circularreveal.CircularRevealLinearLayout
+            android:id="@+id/circularRevealLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintEnd_toEndOf="@+id/sign_in_with_mxh"
+            app:layout_constraintStart_toStartOf="@+id/sign_in_with_mxh"
+            app:layout_constraintTop_toBottomOf="@id/sign_in_with_mxh">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_da_co_tai_khoan"
+                android:textColor="@color/black80" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp10"
+                android:text="Đăng nhập"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{v -> listener.backSignUp()}"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

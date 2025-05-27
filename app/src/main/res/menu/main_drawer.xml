@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/item_drawer_home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/orange"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/item_drawer_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:iconTint="@color/orange"
+        android:title="@string/calendar" />
+    <item
+        android:id="@+id/item_drawer_report"
+        android:icon="@drawable/ic_report"
+        android:iconTint="@color/orange"
+        android:title="@string/report" />
+    <group>
+       <item android:title="@string/drawer_export">
+           <menu>
+               <item
+                   android:id="@+id/item_drawer_pdf"
+                   android:icon="@drawable/ic_pdf"
+                   android:iconTint="@color/orange"
+                   android:title="@string/drawer_export_pdf" />
+
+               <item
+                   android:id="@+id/item_drawer_excel"
+                   android:icon="@drawable/ic_excel"
+                   android:iconTint="@color/orange"
+                   android:title="@string/drawer_export_excel" />
+
+           </menu>
+       </item>
+    </group>
+    <group>
+        <item android:title="@string/drawer_other">
+            <menu>
+                <item
+                    android:id="@+id/item_drawer_share"
+                    android:icon="@drawable/ic_share"
+                    android:iconTint="@color/orange"
+                    android:title="@string/drawer_share" />
+                <item
+                    android:id="@+id/item_drawer_infor"
+                    android:icon="@drawable/ic_information"
+                    android:iconTint="@color/orange"
+                    android:title="@string/drawer_infor_app" />
+            </menu>
+        </item>
+    </group>
+    <group>
+        <item android:title="@string/drawer_account">
+            <menu>
+                <item
+                    android:id="@+id/log_out"
+                    android:icon="@drawable/ic_log_out"
+                    android:iconTint="@color/orange"
+                    android:title="@string/drawer_logout" />
+            </menu>
+        </item>
+    </group>
+</menu>

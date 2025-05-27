@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main_app"
+    app:startDestination="@id/fag_home">
+    <fragment
+        android:id="@+id/fag_calender"
+        android:name="com.qltc.finace.view.main.calendar.CalendarFragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/fag_report"
+        android:name="com.qltc.finace.view.main.report.FragmentReport">
+
+    </fragment>
+    <fragment
+        android:id="@+id/fag_profile"
+        android:name="com.qltc.finace.view.main.profile.FragmentProfile"
+        android:label="FragmentProfile">
+
+    </fragment>
+    <fragment
+        android:id="@+id/fag_home"
+        android:name="com.qltc.finace.view.main.home.FragmentHome">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frg_category_detail"
+        android:name="com.qltc.finace.view.main.home.category.FragmentCategoryDetail">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frg_add_category"
+        android:name="com.qltc.finace.view.main.home.add_category.FragmentAddCategory">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frg_edit_i_e"
+        android:name="com.qltc.finace.view.edit_expense_income.FragmentEditExpenseIncome"/>
+
+    <fragment
+        android:id="@+id/frg_list_data"
+        android:name="com.qltc.finace.view.main.list_data_form_category.FragmentListData"/>
+    <fragment
+        android:id="@+id/frg_all_income_expense"
+        android:name="com.qltc.finace.view.main.all_expense_income.AllIncomeExpenseFragment"/>
+    <fragment
+        android:id="@+id/frg_export_pdf"
+        android:name="com.qltc.finace.view.main.export.FragmentExportPdfConfig"/>
+
+</navigation>

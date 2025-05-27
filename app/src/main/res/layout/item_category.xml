@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="data"
+            type="com.qltc.finace.data.entity.Category" />
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/dp5"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_category_select">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="@dimen/dp28"
+            android:layout_height="@dimen/dp28"
+            android:background="@color/transfer"
+            setIcon="@{data.icon}"
+            android:layout_marginTop="@dimen/dp5"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_Name_Category"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/xam_dam"
+            android:textSize="12sp"
+            android:layout_margin="@dimen/dp5"
+            android:text="@{data.title}"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1" />
+    </LinearLayout>
+</layout>

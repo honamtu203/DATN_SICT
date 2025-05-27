@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?android:colorControlHighlight">
+    <item>
+        <selector>
+            <item
+                android:drawable="@drawable/bg_item_category_false"
+                android:state_selected="false" />
+            <item
+                android:drawable="@drawable/bg_item_category_true"
+                android:state_selected="true" />
+        </selector>
+    </item>
+</ripple>

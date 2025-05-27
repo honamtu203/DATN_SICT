@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="7"
+    android:orientation="horizontal">
+
+    <include layout="@layout/item_day_of_week" />
+
+    <include layout="@layout/item_day_of_week" />
+
+    <include layout="@layout/item_day_of_week" />
+
+    <include layout="@layout/item_day_of_week" />
+
+    <include layout="@layout/item_day_of_week" />
+
+    <include layout="@layout/item_day_of_week" />
+
+    <include layout="@layout/item_day_of_week" />
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qltc.finace.data.entity.CategoryOverView" />
+        <import type="com.qltc.finace.data.entity.CategoryOverView"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginVertical="@dimen/dp2"
+        android:layout_marginHorizontal="@dimen/dp2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dp15"
+            android:gravity="center|start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/bg_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:background="@color/bar_drawer_EFF4F9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/circleImageView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/icon"
+                setIcon="@{item.category.icon}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp10"
+                app:layout_constraintBottom_toBottomOf="@+id/bg_icon"
+                app:layout_constraintEnd_toEndOf="@+id/bg_icon"
+                app:layout_constraintStart_toStartOf="@+id/bg_icon"
+                app:layout_constraintTop_toTopOf="@+id/bg_icon"
+                app:shapeAppearanceOverlay="@style/Widget.AppCompat.Button.Borderless" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:hint="Thời trang"
+                android:layout_marginStart="@dimen/dp20"
+                android:text="@{item.category.title}"
+                android:textColor="@color/black90"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/bg_icon"
+                app:layout_constraintStart_toEndOf="@+id/bg_icon"
+                app:layout_constraintTop_toTopOf="@+id/bg_icon" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView3"
+                setMoney="@{item}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="@dimen/sp18"
+                android:autoSizeMinTextSize="@dimen/sp10"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="start|center"
+                android:text="100.000"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/category" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

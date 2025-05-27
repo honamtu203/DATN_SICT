@@ -1,0 +1,83 @@
+<resources>
+    <string name="client_id" translatable="false">657768385130-iv29rnsb2nj575chv2huhp8g21kdvh4b.apps.googleusercontent.com</string>
+    <string name="app_name">QuanLyThuChi</string>
+    <string name="date">Thời gian</string>
+    <string name="month">Tháng </string>
+    <string name="note_entered">Nhập ghi chú</string>
+    <string name="note">Ghi chú</string>
+    <string name="expense">Khoản chi</string>
+    <string name="category">Danh mục</string>
+    <string name="income">Khoản thu</string>
+    <string name="submit">Nhập</string>
+    <string name="home">Home</string>
+    <string name="calendar">Lịch</string>
+    <string name="report">Báo cáo</string>
+    <string name="profile">Cá nhân</string>
+    <string name="no_data">No Date</string>
+    <string name="input">Nhập</string>
+    <string name="total">Còn lại</string>
+    <string name="balance">Ví của bạn</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_phone">Sign in with Phone</string>
+    <string name="wallet">Wallet</string>
+    <string name="provision">Bằng cách đăng ký, bạn đồng ý với điều khoản dịch vụ và Chính sách Riêng tư của chúng tôi</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="loading">loading</string>
+    <string name="label_call_sp">Liên hệ bộ phận hỗ trợ</string>
+    <string name="label_password">Mật khẩu</string>
+    <string name="label_re_password">Nhập lại mật khẩu</string>
+    <string name="label_da_co_tai_khoan">Đã có tài khoản</string>
+    <string name="label_chua_co_tai_khoan">Bạn chưa có tài khoản ? </string>
+    <string name="when_not_name_user">Ví của bạn</string>
+
+    <string name="error_confirm_password">Mật khẩu sai định dạng hoặc không trùng khớp</string>
+    <string name="error_password">Mật khẩu sai định dạng</string>
+    <string name="error_email">Email sai định dạng</string>
+    <string name="label_email">Email</string>
+    <string name="ok">OK</string>
+    <string name="add_category">Thêm danh mục</string>
+    <string name="edit_expense">Sửa khoản chi</string>
+    <string name="edit_income">Sửa khoản thu</string>
+    <string name="da_them_danh_muc">Đã thêm danh muc</string>
+    <string name="drawer_logout">Đăng xuất</string>
+    <string name="drawer_account">Tài khoản</string>
+    <string name="drawer_remove_ad">Loại bỏ quảng cáo</string>
+    <string name="drawer_infor_app">Thông tin ứng dụng</string>
+    <string name="drawer_share">Chia sẻ</string>
+
+    <string name="drawer_export_pdf">Xuất dữ liệu Pdf</string>
+    <string name="drawer_export">Xuất dữ liệu</string>
+    <string name="drawer_export_excel">Xuất dữ liệu Excel</string>
+    <string name="drawer_other">Khác</string>
+    <string name="selected_date_to_show_information">"Tháng %s"</string>
+    <string name="activity_title_view">Calendar View Sample</string>
+    <string name="example_5_title">Example 5</string>
+    <string name="example_5_subtitle">Single selection, programmatic calendar scrolling, generates six rows for all months showing \"EndOfGrid\" implementation of OutDateStyle property. A flight schedule calendar.</string>
+    <string name="other">Khác</string>
+    <string name="update_income">Sửa khoản thu</string>
+    <string name="update_expense">Sửa khoản chi</string>
+    <string name="message_update_expense">Đã sửa khoản chi</string>
+    <string name="message_update_income">Đã sửa khoản thu</string>
+    <string name="err_update_income">Lỗi không xác định khi sửa thu</string>
+    <string name="err_update_expense">Lỗi không xác định khi sửa chi</string>
+    <string name="no_data_found">Không có dữ liệu</string>
+
+    <!-- PDF Export -->
+    <string name="time_period">Khoảng thời gian</string>
+    <string name="select_date">Chọn ngày</string>
+    <string name="data_type">Loại dữ liệu</string>
+    <string name="both_income_expense">Cả thu và chi</string>
+    <string name="display_options">Tùy chọn hiển thị</string>
+    <string name="show_charts">Hiển thị biểu đồ</string>
+    <string name="show_statistics">Hiển thị thống kê</string>
+    <string name="show_details">Hiển thị chi tiết</string>
+    <string name="file_name">Tên file</string>
+    <string name="file_name_hint">Nhập tên file hoặc để trống để dùng tên mặc định</string>
+    <string name="export_pdf">Xuất PDF</string>
+    <string name="select_date_range">Chọn khoảng thời gian</string>
+    <string name="start_date">Ngày bắt đầu</string>
+    <string name="end_date">Ngày kết thúc</string>
+    <string name="date_range_error">Ngày bắt đầu phải trước ngày kết thúc</string>
+    <string name="apply">Áp dụng</string>
+</resources>

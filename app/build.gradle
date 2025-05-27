@@ -1,0 +1,127 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.dagger.hilt.android'
+}
+
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    namespace 'com.qltc.finace'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.qltc.finace"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    viewBinding {
+        enabled = true
+    }
+    dataBinding {
+        enabled = true
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src/main/assets'
+            }
+        }
+    }
+    
+
+}
+
+dependencies {
+    implementation "androidx.core:core-splashscreen:1.0.1" // bản ổn định nhất hiện tại
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.12.0' // OK, mới rồi
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta02' // nếu cần ổn định tuyệt đối, để 1.0.0 cũng được
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0' // Không cần update (deprecated rồi, nhưng nếu cần thì để nguyên)
+    implementation 'androidx.gridlayout:gridlayout:1.0.0' // Không update vì chưa có bản mới
+
+    implementation platform('com.google.firebase:firebase-bom:33.0.0')
+    implementation 'com.google.firebase:firebase-auth-ktx' // nên xài bản -ktx cho Kotlin
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+
+    implementation 'androidx.core:core-i18n:1.0.0-alpha01'
+
+    // --- PDF Generation
+    implementation 'com.itextpdf:itextg:5.5.10'
+    implementation 'com.karumi:dexter:6.2.3'
+
+    // --- Test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // --- Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.7.0"
+
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+
+    // --- Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
+
+    // --- Room
+    def room_version = "2.6.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-rxjava3:$room_version"
+    implementation "androidx.room:room-guava:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+    implementation "androidx.room:room-paging:$room_version"
+
+    // --- Hilt
+    implementation "com.google.dagger:hilt-android:2.48"
+    kapt "com.google.dagger:hilt-android-compiler:2.48"
+
+    implementation "androidx.hilt:hilt-navigation-fragment:1.2.0" // hilt-lifecycle-viewmodel đã bị bỏ, dùng navigation-fragment
+
+    // --- Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
+
+    // --- Others
+    implementation "com.github.PhilJay:MPAndroidChart:v3.1.0" // OK
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.kizitonwose.calendar:view:2.5.1' // OK
+    implementation "org.greenrobot:eventbus:3.3.1"
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14' // nếu cần
+
+}
+
+kapt {
+    correctErrorTypes  true
+}

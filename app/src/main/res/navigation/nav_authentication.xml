@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/fag_sign_in">
+    <fragment
+        android:id="@+id/fag_sign_in"
+        android:name="com.qltc.finace.view.authentication.sign_in.SignInFragment">
+        <action android:id="@+id/sign_in_to_login_phone"
+            app:destination="@+id/fag_login_phone"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fag_login_phone"
+        android:name="com.qltc.finace.view.authentication.login_phone.LoginPhoneFragment">
+
+        <action android:id="@+id/login_phone_to_otp"
+            app:destination="@id/fag_otp"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fag_otp"
+        android:name="com.qltc.finace.view.authentication.otp.OtpFragment"/>
+    <fragment
+        android:id="@+id/fag_sign_up"
+        android:name="com.qltc.finace.view.authentication.sign_up.SignUpFragment"/>
+</navigation>

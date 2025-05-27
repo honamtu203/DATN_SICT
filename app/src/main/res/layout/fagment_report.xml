@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.qltc.finace.view.main.report.ReportListener" />
+
+        <variable
+            name="viewModel"
+            type="com.qltc.finace.view.main.report.ReportViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/materialToolbar2"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:elevation="@dimen/dp12"
+            android:text="@string/report"
+            android:textColor="@color/black80"
+            android:textSize="@dimen/sp22"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/materialToolbar2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="@dimen/dp24"
+            android:layout_height="@dimen/dp24"
+            android:background="@drawable/ic_search"
+            android:elevation="@dimen/dp12"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/materialToolbar2"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+        <LinearLayout
+            android:id="@+id/gr_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialToolbar2">
+
+            <LinearLayout
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp116"
+                android:layout_marginHorizontal="@dimen/dp15"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_expense_income_balance_radius_10"
+                android:backgroundTint="@color/bar_drawer_EFF4F9"
+                android:orientation="vertical"
+                android:weightSum="5">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/transfer"
+                        android:onClick="@{v -> listener.openViewAll()}"
+                        android:padding="@dimen/dp3"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:textColor="@color/color_31a24c"
+                        android:text="Xem tất cả"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Ví của tôi"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:textColor="@color/black90"
+                        android:textSize="@dimen/sp18"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3">
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp1"
+                        android:layout_marginHorizontal="@dimen/dp20"
+                        android:background="@color/orange"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp15"
+                        android:background="@drawable/bg_radius_5"
+                        android:backgroundTint="@color/orange"
+                        android:paddingHorizontal="@dimen/dp10"
+                        android:paddingVertical="@dimen/dp10"
+                        android:src="@drawable/ic_1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/dp10"
+                        android:paddingVertical="@dimen/dp10"
+                        setMoneyTotalReport="@{viewModel.total}"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/sp18"
+                        android:layout_marginEnd="@dimen/dp10"
+                        android:textColor="@color/black60"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_day"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/btn_back_day"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pick_time"
+                    app:layout_constraintTop_toTopOf="@+id/pick_time" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_next_day"
+                    android:layout_width="15dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/ic_next"
+                    app:layout_constraintBottom_toBottomOf="@+id/pick_time"
+                    app:layout_constraintStart_toEndOf="@+id/pick_time"
+                    app:layout_constraintTop_toTopOf="@+id/pick_time" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pick_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_date"
+                    android:backgroundTint="@color/green_background_incomeDBE5E6"
+                    android:gravity="center"
+                    android:onClick="@{v -> listener.openDayPicker()}"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_report"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gr_3"
+            app:tabIndicatorAnimationDuration="@integer/material_motion_duration_medium_1"
+            app:tabIndicatorColor="@color/orange"
+            app:tabTextColor="@color/black60"
+            android:layout_marginHorizontal="@dimen/dp20"
+            app:tabIndicatorFullWidth="true"
+            app:tabSelectedTextColor="@color/orange"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expense" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/income" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <com.qltc.finace.view.main.report.chart.PieChartReport
+            android:id="@+id/m_chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:0.55"
+            app:layout_constraintWidth_percent="1"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout_report" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/month_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp15"
+            android:text="Tháng 06/2024"
+            android:textColor="@color/orange"
+            app:layout_constraintBottom_toBottomOf="@+id/filter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/filter" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp10"
+            android:background="@drawable/bg_radius_5"
+            android:backgroundTint="@color/bar_drawer_EFF4F9"
+            android:drawableEnd="@drawable/ic_filter"
+            android:gravity="center"
+            android:onClick="@{v -> listener.openDayPicker()}"
+            android:paddingHorizontal="@dimen/dp15"
+            android:paddingVertical="@dimen/dp4"
+            android:text=""
+            android:textColor="@color/orange"
+            app:backgroundTint="@null"
+            app:iconSize="@dimen/dp24"
+            app:iconTint="@color/orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/m_chart" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dp60"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filter"
+            tools:listitem="@layout/item_total_calendar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="listener"
+            type="com.qltc.finace.view.main.export.ExportPdfListener" />
+        <variable
+            name="viewModel"
+            type="com.qltc.finace.view.main.export.ExportPdfViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Toolbar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_back"
+                    android:onClick="@{() -> listener.onBackClicked()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drawer_export_pdf"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Time Period Section -->
+            <TextView
+                android:id="@+id/tvTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/time_period"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+            <!-- Replace TextView with inline month/year pickers -->
+            <LinearLayout
+                android:id="@+id/monthYearPickerContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_edit_text"
+                android:orientation="horizontal"
+                android:paddingVertical="2dp"
+                app:layout_constraintEnd_toStartOf="@id/btnSelectDate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTimeLabel">
+
+                <NumberPicker
+                    android:id="@+id/monthPicker"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1.2" />
+
+                <NumberPicker
+                    android:id="@+id/yearPicker"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="0.8" />
+            </LinearLayout>
+
+            <!-- Hide old TextView but keep for compatibility -->
+            <TextView
+                android:id="@+id/tvTimeRange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTimeLabel" />
+
+            <!-- Change button text to "Xác nhận" -->
+            <Button
+                android:id="@+id/btnSelectDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/orange"
+                app:layout_constraintBottom_toBottomOf="@id/monthYearPickerContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/monthYearPickerContainer" />
+
+            <!-- Data Type Section -->
+            <TextView
+                android:id="@+id/tvDataTypeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/data_type"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/monthYearPickerContainer" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupDataType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDataTypeLabel">
+
+                <RadioButton
+                    android:id="@+id/rbExpense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expense"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:buttonTint="@color/orange" />
+
+                <RadioButton
+                    android:id="@+id/rbIncome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/income"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:buttonTint="@color/orange" />
+
+                <RadioButton
+                    android:id="@+id/rbBoth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/both_income_expense"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:buttonTint="@color/orange"
+                    android:checked="true" />
+            </RadioGroup>
+
+            <!-- Display Options Section -->
+            <TextView
+                android:id="@+id/tvDisplayOptionsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/display_options"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupDataType" />
+
+            <CheckBox
+                android:id="@+id/cbShowCharts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/show_charts"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:buttonTint="@color/orange"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDisplayOptionsLabel" />
+
+            <CheckBox
+                android:id="@+id/cbShowStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_statistics"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:buttonTint="@color/orange"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cbShowCharts" />
+
+            <CheckBox
+                android:id="@+id/cbShowDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_details"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:buttonTint="@color/orange"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cbShowStats" />
+
+            <!-- File Name Section -->
+            <TextView
+                android:id="@+id/tvFileNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/file_name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cbShowDetails" />
+
+            <EditText
+                android:id="@+id/edtFileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_edit_text"
+                android:hint="@string/file_name_hint"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFileNameLabel" />
+
+            <!-- Export Button -->
+            <Button
+                android:id="@+id/btnExportPdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:onClick="@{() -> listener.onExportPdfClicked()}"
+                android:padding="12dp"
+                android:text="@string/export_pdf"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:backgroundTint="@color/orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtFileName" />
+                
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:indeterminateTint="@color/orange"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnExportPdf" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout> 

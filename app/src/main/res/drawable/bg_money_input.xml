@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?android:colorControlHighlight" >
+    <item>
+        <shape android:shape="rectangle">
+            <size
+                android:width="250dp"
+                android:height="40dp" />
+            <corners android:radius="10dp" />
+            <solid android:color="@color/bar_drawer_EFF4F9" />
+        </shape>
+    </item>
+
+</ripple>
