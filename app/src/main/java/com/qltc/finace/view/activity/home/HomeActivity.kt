@@ -162,10 +162,6 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                     // Handle information display
                     true
                 }
-                R.id.item_drawer_csv -> {
-                    navController?.navigate(R.id.frg_export_csv)
-                    true
-                }
                 R.id.log_out -> {
                     FirebaseAuth.getInstance().signOut()
                     signOutFromGoogle()
