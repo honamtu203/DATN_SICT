@@ -47,5 +47,9 @@
     <fragment
         android:id="@+id/frg_export_pdf"
         android:name="com.qltc.finace.view.main.export.FragmentExportPdfConfig"/>
+    <fragment
+        android:id="@+id/frag_help"
+        android:name="com.qltc.finace.view.main.helper.FragmentHelper"
+        android:label="FragmentHelper" />
 
 </navigation>

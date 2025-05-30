@@ -162,9 +162,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                     // Handle information display
                     true
                 }
-                R.id.log_out -> {
-                    FirebaseAuth.getInstance().signOut()
-                    signOutFromGoogle()
+                R.id.item_drawer_account -> {
+                    navController?.navigate(R.id.fag_profile)
                     true
                 }
                 else -> {
@@ -175,7 +174,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
             true
         }
     }
-    private fun signOutFromGoogle() {
+    fun signOutFromGoogle() {
+        FirebaseAuth.getInstance().signOut()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
         googleSignInClient.signOut().addOnCompleteListener { task: Task<Void> ->

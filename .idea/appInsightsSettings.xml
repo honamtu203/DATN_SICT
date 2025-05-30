@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.qltc.finace" />
+                  <option name="mobileSdkAppId" value="1:657768385130:android:b269fdd483921464e69813" />
+                  <option name="projectId" value="qltc-9f085" />
+                  <option name="projectNumber" value="657768385130" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

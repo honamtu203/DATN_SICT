@@ -61,10 +61,10 @@
         <item android:title="@string/drawer_account">
             <menu>
                 <item
-                    android:id="@+id/log_out"
-                    android:icon="@drawable/ic_log_out"
+                    android:id="@+id/item_drawer_account"
+                    android:icon="@drawable/ic_people"
                     android:iconTint="@color/orange"
-                    android:title="@string/drawer_logout" />
+                    android:title="Tài Khoản" />
             </menu>
         </item>
     </group>

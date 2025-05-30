@@ -1,0 +1,101 @@
+package com.qltc.finace.view.main.helper
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.qltc.finace.R
+import com.qltc.finace.base.BaseFragment
+import com.qltc.finace.databinding.FragmentHelperBinding
+
+class FragmentHelper : BaseFragment<FragmentHelperBinding, HelperViewModel>(), HelperListener {
+    override val layoutID: Int = R.layout.fragment_helper
+    override val viewModel: HelperViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding.lifecycleOwner = this
+        viewBinding.listener = this
+    }
+
+    override fun onBackClick() {
+        findNavController().navigateUp()
+    }
+
+    override fun onFacebookHelpClick() {
+        openUrl("https://www.facebook.com/Ho.Nam.Tu.0711/")
+    }
+
+    override fun onMailHelpClick() {
+        openEmail("honamtu203.doan@gmail.com")
+    }
+
+    override fun onZaloHelpClick() {
+        openUrl("https://zalo.me/0398812298")
+    }
+
+    override fun onPhoneHelpClick() {
+        openPhoneDialer("0398812298")
+    }
+
+    private fun openUrl(url: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                showNoAppToast("trình duyệt")
+            }
+        } catch (e: Exception) {
+            showErrorToast()
+        }
+    }
+
+    private fun openEmail(emailAddress: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:$emailAddress")
+                putExtra(Intent.EXTRA_SUBJECT, "Yêu cầu trợ giúp từ ứng dụng QLTC")
+            }
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                showNoAppToast("ứng dụng email")
+            }
+        } catch (e: Exception) {
+            showErrorToast()
+        }
+    }
+
+    private fun openPhoneDialer(phoneNumber: String) {
+        try {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                showNoAppToast("ứng dụng gọi điện")
+            }
+        } catch (e: Exception) {
+            showErrorToast()
+        }
+    }
+
+    private fun showNoAppToast(appType: String) {
+        Toast.makeText(
+            requireContext(),
+            "Không tìm thấy $appType phù hợp trên thiết bị này",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun showErrorToast() {
+        Toast.makeText(
+            requireContext(),
+            "Có lỗi xảy ra. Vui lòng thử lại sau",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+} 
