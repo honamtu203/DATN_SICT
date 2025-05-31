@@ -19,10 +19,11 @@
         android:iconTint="@color/orange"
         android:title="@string/report" />
     <item
-        android:id="@+id/item_drawer_csv"
-        android:icon="@drawable/ic_excel"
+        android:id="@+id/item_drawer_notebook"
+        android:icon="@drawable/ic_notebooklm"
         android:iconTint="@color/orange"
-        android:title="Xuất file csv" />
+        android:title="@string/drawer_notebooklm" />
+
     <group>
        <item android:title="@string/drawer_export">
            <menu>
@@ -54,6 +55,11 @@
                     android:icon="@drawable/ic_information"
                     android:iconTint="@color/orange"
                     android:title="@string/drawer_infor_app" />
+                <item
+                    android:id="@+id/item_drawer_faq"
+                    android:icon="@drawable/ic_faq"
+                    android:iconTint="@color/orange"
+                    android:title="@string/drawer_faq"/>
             </menu>
         </item>
     </group>

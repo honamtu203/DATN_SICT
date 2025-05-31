@@ -20,6 +20,12 @@
         android:title="@string/report" />
 
     <item
+        android:id="@+id/fag_notebook"
+        android:iconTint="@color/orange"
+        android:icon="@drawable/ic_notebooklm"
+        android:title="@string/drawer_notebooklm" />
+
+    <item
         android:id="@+id/fagg_profile"
         android:iconTint="@color/orange"
         android:icon="@drawable/ic_31"

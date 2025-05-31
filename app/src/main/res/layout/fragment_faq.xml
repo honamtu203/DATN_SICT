@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.qltc.finace.view.main.helper.FAQListener" />
+        <variable
+            name="listener"
+            type="FAQListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <!-- Button Back -->
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back button"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:onClick="@{() -> listener.onBackClick()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <!-- Tiêu đề FAQ -->
+        <TextView
+            android:id="@+id/tv_faq_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Câu Hỏi Thường Gặp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/iv_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- RecyclerView for FAQ items -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_faq"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/tv_faq_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_faq" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout> 

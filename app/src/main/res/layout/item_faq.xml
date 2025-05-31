@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="data"
+            type="com.qltc.finace.data.entity.FAQItem" />
+        <variable
+            name="adapter"
+            type="com.qltc.finace.view.adapter.FAQAdapter" />
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="0dp"
+        android:background="@android:color/white">
+
+        <!-- Question container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Question row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp"
+                android:onClick="@{(view) -> adapter.toggleExpansion(position)}"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{data.question}"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:textColor="@android:color/black"
+                    android:lineSpacingExtra="4dp"
+                    tools:text="Làm thế nào để tôi nhập một khoản thu nhập mới vào ứng dụng?" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@{data.isExpanded ? @drawable/ic_upper : @drawable/ic_down}"
+                    android:contentDescription="Toggle FAQ answer"
+                    android:rotation="@{data.isExpanded ? 180f : 0f}"
+                    tools:src="@drawable/ic_down" />
+
+            </LinearLayout>
+
+            <!-- Answer section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp"
+                android:paddingBottom="16dp"
+                android:text="@{data.answer}"
+                android:textSize="14sp"
+                android:textColor="@color/xam"
+                android:lineSpacingExtra="6dp"
+                android:visibility="@{data.isExpanded ? View.VISIBLE : View.GONE}"
+                android:background="#F5F5F5"
+                tools:text="Bước 1: Từ giao diện chính, chuyển sang Tab Khoản thu.\nBước 2: Nhấn vào nút Thêm mới (thường là biểu tượng dấu +).\nBước 3: Nhập các thông tin: số tiền thu, chọn danh mục thu (ví dụ: Lương, Bán hàng, Thu nhập khác), ngày nhận tiền, và có thể thêm ghi chú chi tiết.\nBước 4: Nhấn Lưu để ghi lại khoản thu."
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout> 

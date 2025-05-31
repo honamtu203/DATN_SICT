@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -104,6 +105,15 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                         navController?.navigate(R.id.fag_report)
                         true
                     }
+                    R.id.fag_notebook -> {
+                        val bundle = bundleOf("url" to "https://notebooklm.google.com/")
+                        navController?.navigate(R.id.frg_webview, bundle)
+                        true
+                    }
+                    R.id.fagg_profile -> {
+                        viewBinding.drawer.openDrawer(GravityCompat.END)
+                        false
+                    }
                     else -> {
                         viewBinding.drawer.openDrawer(GravityCompat.END)
                         false
@@ -144,6 +154,12 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                     true
                 }
 
+                R.id.item_drawer_notebook -> {
+                    val bundle = bundleOf("url" to "https://notebooklm.google.com/")
+                    navController?.navigate(R.id.frg_webview, bundle)
+                    true
+                }
+
                 R.id.item_drawer_pdf -> {
                     navController?.navigate(R.id.frg_export_pdf)
                     true
@@ -160,6 +176,10 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                 }
                 R.id.item_drawer_infor -> {
                     // Handle information display
+                    true
+                }
+                R.id.item_drawer_faq -> {
+                    navController?.navigate(R.id.frag_FAQ)
                     true
                 }
                 R.id.item_drawer_account -> {

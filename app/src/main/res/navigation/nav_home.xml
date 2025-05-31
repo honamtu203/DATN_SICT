@@ -51,5 +51,13 @@
         android:id="@+id/frag_help"
         android:name="com.qltc.finace.view.main.helper.FragmentHelper"
         android:label="FragmentHelper" />
+    <fragment
+        android:id="@+id/frag_FAQ"
+        android:name="com.qltc.finace.view.main.helper.FragmentFAQ"
+        android:label="FragmentFAQ" />
+    <fragment
+        android:id="@+id/frg_webview"
+        android:name="com.qltc.finace.view.main.webview.FragmentWebView"
+        android:label="NotebookLM" />
 
 </navigation>

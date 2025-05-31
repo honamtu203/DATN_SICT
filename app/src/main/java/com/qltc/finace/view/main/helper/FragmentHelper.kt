@@ -22,62 +22,106 @@ class FragmentHelper : BaseFragment<FragmentHelperBinding, HelperViewModel>(), H
     }
 
     override fun onBackClick() {
-        findNavController().navigateUp()
+        findNavController().navigate(R.id.fag_profile)
     }
 
     override fun onFacebookHelpClick() {
-        openUrl("https://www.facebook.com/Ho.Nam.Tu.0711/")
+        openUrlWithChooser("https://www.facebook.com/Ho.Nam.Tu.0711/", "Chọn ứng dụng để mở Facebook")
     }
 
     override fun onMailHelpClick() {
-        openEmail("honamtu203.doan@gmail.com")
+        openEmailWithChooser("honamtu203.doan@gmail.com")
     }
 
     override fun onZaloHelpClick() {
-        openUrl("https://zalo.me/0398812298")
+        openUrlWithChooser("https://zalo.me/0398812298", "Chọn ứng dụng để mở Zalo")
     }
 
     override fun onPhoneHelpClick() {
-        openPhoneDialer("0398812298")
+        openPhoneDialerWithChooser("0398812298")
     }
 
-    private fun openUrl(url: String) {
+//    private fun openUrlWithChooser(url: String, chooserTitle: String) {
+//        try {
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//
+//            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+//                val chooserIntent = Intent.createChooser(intent, chooserTitle)
+//                startActivity(chooserIntent)
+//            } else {
+//                showNoAppToast("trình duyệt")
+//            }
+//        } catch (e: Exception) {
+//            showErrorToast()
+//        }
+//    }
+
+    private fun openUrlWithChooser(url: String, chooserTitle: String) {
         try {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intent)
-            } else {
-                showNoAppToast("trình duyệt")
-            }
+            val chooserIntent = Intent.createChooser(intent, chooserTitle)
+            startActivity(chooserIntent)
         } catch (e: Exception) {
-            showErrorToast()
+            showNoAppToast("trình duyệt hoặc ứng dụng hỗ trợ")
         }
     }
 
-    private fun openEmail(emailAddress: String) {
+//    private fun openEmailWithChooser(emailAddress: String) {
+//        try {
+//            val intent = Intent(Intent.ACTION_SENDTO).apply {
+//                data = Uri.parse("mailto:$emailAddress")
+//                putExtra(Intent.EXTRA_SUBJECT, "Yêu cầu trợ giúp từ ứng dụng QLTC")
+//                putExtra(Intent.EXTRA_TEXT, "Xin chào,\n\nTôi cần hỗ trợ về ứng dụng QLTC.\n\nCảm ơn!")
+//            }
+//
+//            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+//                val chooserIntent = Intent.createChooser(intent, "Chọn ứng dụng email để gửi")
+//                startActivity(chooserIntent)
+//            } else {
+//                showNoAppToast("ứng dụng email")
+//            }
+//        } catch (e: Exception) {
+//            showErrorToast()
+//        }
+//    }
+
+    private fun openEmailWithChooser(emailAddress: String) {
         try {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:$emailAddress")
                 putExtra(Intent.EXTRA_SUBJECT, "Yêu cầu trợ giúp từ ứng dụng QLTC")
+                putExtra(Intent.EXTRA_TEXT, "Xin chào,\n\nTôi cần hỗ trợ về ứng dụng QLTC.\n\nCảm ơn!")
             }
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intent)
-            } else {
-                showNoAppToast("ứng dụng email")
-            }
+
+            val chooser = Intent.createChooser(intent, "Chọn ứng dụng email để gửi")
+            startActivity(chooser)
+
         } catch (e: Exception) {
             showErrorToast()
         }
     }
 
-    private fun openPhoneDialer(phoneNumber: String) {
+//    private fun openPhoneDialerWithChooser(phoneNumber: String) {
+//        try {
+//            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+//
+//            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+//                val chooserIntent = Intent.createChooser(intent, "Chọn ứng dụng để gọi điện")
+//                startActivity(chooserIntent)
+//            } else {
+//                showNoAppToast("ứng dụng gọi điện")
+//            }
+//        } catch (e: Exception) {
+//            showErrorToast()
+//        }
+//    }
+
+    private fun openPhoneDialerWithChooser(phoneNumber: String) {
         try {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intent)
-            } else {
-                showNoAppToast("ứng dụng gọi điện")
-            }
+            val chooser = Intent.createChooser(intent, "Chọn ứng dụng để gọi điện")
+            startActivity(chooser)
+
         } catch (e: Exception) {
             showErrorToast()
         }
