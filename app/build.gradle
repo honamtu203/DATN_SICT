@@ -72,6 +72,9 @@ dependencies {
 
     implementation 'androidx.core:core-i18n:1.0.0-alpha01'
 
+    // --- Chrome Custom Tabs for secure web browsing
+    implementation 'androidx.browser:browser:1.8.0'
+
     // --- PDF Generation
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.karumi:dexter:6.2.3'

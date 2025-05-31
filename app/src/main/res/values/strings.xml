@@ -13,6 +13,7 @@
     <string name="calendar">Lịch</string>
     <string name="report">Báo cáo</string>
     <string name="profile">Cá nhân</string>
+    <string name="notebooklm">NotebookLM</string>
     <string name="no_data">No Date</string>
     <string name="input">Nhập</string>
     <string name="total">Còn lại</string>
@@ -47,6 +48,7 @@
     <string name="drawer_faq">Câu hỏi thường gặp</string>"
     <string name="drawer_notebooklm">Notebook QLTCCN</string>
     <string name="drawer_share">Chia sẻ</string>
+    <string name="drawer_faq">Câu hỏi thường gặp</string>
 
     <string name="drawer_export_pdf">Xuất dữ liệu Pdf</string>
     <string name="drawer_export">Xuất dữ liệu</string>

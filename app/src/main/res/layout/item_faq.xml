@@ -60,10 +60,10 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
-                    android:src="@{data.isExpanded ? @drawable/ic_upper : @drawable/ic_down}"
+                    android:src="@{data.isExpanded ? @drawable/ic_upper : @drawable/ic_downer}"
                     android:contentDescription="Toggle FAQ answer"
                     android:rotation="@{data.isExpanded ? 180f : 0f}"
-                    tools:src="@drawable/ic_down" />
+                    tools:src="@drawable/ic_downer" />
 
             </LinearLayout>
 

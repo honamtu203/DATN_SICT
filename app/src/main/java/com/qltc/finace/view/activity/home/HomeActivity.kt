@@ -18,6 +18,8 @@ import com.qltc.finace.base.BaseActivity
 import com.qltc.finace.databinding.ActivityMainBinding
 import com.qltc.finace.databinding.NavHeaderMainBinding
 import com.qltc.finace.view.activity.authen.AuthenticationActivity
+import com.qltc.finace.view.main.webview.ChromeCustomTabHelper
+import com.qltc.finace.view.main.webview.NotebookLMOptionDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -106,8 +108,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                         true
                     }
                     R.id.fag_notebook -> {
-                        val bundle = bundleOf("url" to "https://notebooklm.google.com/")
-                        navController?.navigate(R.id.frg_webview, bundle)
+                        // Show option dialog to choose between Chrome Custom Tabs or WebView
+                        NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
                         true
                     }
                     R.id.fagg_profile -> {
@@ -155,8 +157,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                 }
 
                 R.id.item_drawer_notebook -> {
-                    val bundle = bundleOf("url" to "https://notebooklm.google.com/")
-                    navController?.navigate(R.id.frg_webview, bundle)
+                    // Show option dialog for drawer access as well
+                    NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
                     true
                 }
 
