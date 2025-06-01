@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác Thực Số Điện Thoại"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Message -->
+    <TextView
+        android:id="@+id/tv_otp_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mã OTP đã được gửi về số điện thoại của bạn. Vui lòng nhập mã để xác thực."
+        android:textSize="14sp"
+        android:textColor="@color/xam"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxCornerRadiusBottomEnd="@dimen/dp10"
+        app:boxCornerRadiusBottomStart="@dimen/dp10"
+        app:boxCornerRadiusTopEnd="@dimen/dp10"
+        app:boxCornerRadiusTopStart="@dimen/dp10"
+        app:boxStrokeColor="@color/color_AFB0B6"
+        app:boxStrokeWidth="@dimen/dp1"
+        app:hintTextColor="@color/color_AFB0B6">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_otp_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập mã OTP"
+            android:drawableStart="@drawable/ic_pass"
+            android:drawablePadding="@dimen/dp5"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:lines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Resend OTP -->
+    <TextView
+        android:id="@+id/tv_resend_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gửi lại mã OTP"
+        android:textSize="14sp"
+        android:textColor="@color/orange"
+        android:gravity="center"
+        android:padding="8dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textColor="@color/xam"
+            android:layout_marginEnd="12dp"
+            android:paddingHorizontal="@dimen/dp20"
+            android:paddingVertical="@dimen/dp10"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác Nhận"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:backgroundTint="@color/orange"
+            android:paddingHorizontal="@dimen/dp20"
+            android:paddingVertical="@dimen/dp10"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+</LinearLayout> 

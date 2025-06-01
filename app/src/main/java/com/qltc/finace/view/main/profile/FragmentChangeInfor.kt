@@ -61,6 +61,34 @@ class FragmentChangeInfor : BaseFragment<FragmentChangeInforBinding, ChangeInfor
         viewModel.currentUserName.observe(viewLifecycleOwner) { name ->
             // This will update the display name automatically through data binding
         }
+
+        // Observe OTP dialog trigger
+        viewModel.showOtpDialog.observe(viewLifecycleOwner) { phoneNumber ->
+            if (phoneNumber.isNotEmpty()) {
+                showOtpDialog(phoneNumber)
+            }
+        }
+    }
+
+    private fun showOtpDialog(phoneNumber: String) {
+        val username = viewBinding.etUsername.text.toString().trim()
+        val email = viewBinding.etEmail.text.toString().trim()
+        
+        val otpDialog = OtpVerificationDialog(
+            context = requireActivity(),
+            phoneNumber = phoneNumber,
+            onOtpConfirmed = { credential ->
+                // OTP verified successfully, update phone along with other fields
+                viewModel.updateWithPhoneCredential(credential, username, email)
+            },
+            onOtpCancelled = {
+                // OTP cancelled, but still update username and email if valid
+                Toast.makeText(requireContext(), "Xác thực số điện thoại bị hủy", Toast.LENGTH_SHORT).show()
+                viewModel.updateWithoutPhone(username, email)
+            }
+        )
+        
+        otpDialog.show()
     }
 
     override fun onBackClick() {
@@ -93,12 +121,29 @@ class FragmentChangeInfor : BaseFragment<FragmentChangeInforBinding, ChangeInfor
             return
         }
 
-        // Use current values if fields are empty (user didn't want to change them)
-        val finalUsername = if (username.isNotEmpty()) username else currentUsername
-        val finalPhone = if (phone.isNotEmpty()) phone else currentPhone
-        val finalEmail = if (email.isNotEmpty()) email else currentEmail
-
-        // Call ViewModel to update user info
-        viewModel.updateUserInfo(finalUsername, finalPhone, finalEmail)
+        // Validate phone number format if changed
+        if (hasPhoneChange && !phone.startsWith("+84")) {
+            // Auto-format phone number if it doesn't have country code
+            val formattedPhone = if (phone.startsWith("0")) {
+                "+84${phone.substring(1)}"
+            } else {
+                "+84$phone"
+            }
+            viewBinding.etPhone.setText(formattedPhone)
+            // Use current values if fields are empty (user didn't want to change them)
+            val finalUsername = if (username.isNotEmpty()) username else currentUsername
+            val finalEmail = if (email.isNotEmpty()) email else currentEmail
+            
+            // Call ViewModel to update user info (will trigger OTP if phone changed)
+            viewModel.updateUserInfo(finalUsername, formattedPhone, finalEmail)
+        } else {
+            // Use current values if fields are empty (user didn't want to change them)
+            val finalUsername = if (username.isNotEmpty()) username else currentUsername
+            val finalPhone = if (phone.isNotEmpty()) phone else currentPhone
+            val finalEmail = if (email.isNotEmpty()) email else currentEmail
+            
+            // Call ViewModel to update user info (will trigger OTP if phone changed)
+            viewModel.updateUserInfo(finalUsername, finalPhone, finalEmail)
+        }
     }
 } 
