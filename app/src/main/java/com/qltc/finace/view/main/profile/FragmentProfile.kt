@@ -12,10 +12,18 @@ import com.qltc.finace.view.activity.home.HomeActivity
 class FragmentProfile : BaseFragment<FagmentProfileBinding,ProfileViewModel>(), ProfileListener {
     override val layoutID: Int = R.layout.fagment_profile
     override val viewModel: ProfileViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.lifecycleOwner = this
         viewBinding.listener = this
+        viewBinding.viewModel = viewModel
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Update user profile when fragment becomes visible
+        viewModel.updateUserProfile()
     }
 
     override fun onBackClick() {
@@ -23,7 +31,7 @@ class FragmentProfile : BaseFragment<FagmentProfileBinding,ProfileViewModel>(), 
     }
 
     override fun onEditProfileClick() {
-        // TODO: Navigate to edit profile screen
+        findNavController().navigate(R.id.frg_change_infor)
     }
 
     override fun onChangePasswordClick() {

@@ -192,6 +192,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="frg_change_infor">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="728" />
+                            <option name="y" value="725" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="frg_edit_i_e">
                     <value>
                       <LayoutPositions>

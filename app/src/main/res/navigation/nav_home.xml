@@ -59,5 +59,9 @@
         android:id="@+id/frg_webview"
         android:name="com.qltc.finace.view.main.webview.FragmentWebView"
         android:label="NotebookLM" />
+    <fragment
+        android:id="@+id/frg_change_infor"
+        android:name="com.qltc.finace.view.main.profile.FragmentChangeInfor"
+        android:label="Chỉnh Sửa Hồ Sơ" />
 
 </navigation>
