@@ -115,4 +115,7 @@
     <color name="blue_main">#55B9FF</color>
     <color name="gray_text">#676464</color>
     <color name="gray_light">#E0E0E0</color>
+    
+    <!-- Colors for Email Dialog -->
+    <color name="color_f8f8f8">#F8F8F8</color>
 </resources>

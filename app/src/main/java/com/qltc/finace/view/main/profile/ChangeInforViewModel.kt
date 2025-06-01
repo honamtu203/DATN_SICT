@@ -32,6 +32,9 @@ class ChangeInforViewModel : BaseViewModel() {
     private val _showOtpDialog = MutableLiveData<String>()
     val showOtpDialog: LiveData<String> = _showOtpDialog
     
+    private val _showEmailDialog = MutableLiveData<String>()
+    val showEmailDialog: LiveData<String> = _showEmailDialog
+    
     init {
         loadCurrentUserInfo()
     }
@@ -81,17 +84,31 @@ class ChangeInforViewModel : BaseViewModel() {
                     return@launch
                 }
                 
+                // Validate email format if changed
+                if (hasEmailChange && !isValidEmail(newEmail)) {
+                    _updateResult.value = "Định dạng email không hợp lệ"
+                    return@launch
+                }
+                
                 if (!hasUsernameChange && !hasEmailChange && !hasPhoneChange) {
                     _updateResult.value = "Không có thay đổi nào để lưu"
                     return@launch
                 }
                 
-                // If phone number changed, show OTP dialog
-                if (hasPhoneChange) {
-                    _showOtpDialog.value = newPhone
-                } else {
-                    // Update only username and email
-                    updateWithoutPhone(newUsername, newEmail, hasUsernameChange, hasEmailChange)
+                // Priority: Phone > Email > Username
+                when {
+                    hasPhoneChange -> {
+                        // If phone number changed, show OTP dialog
+                        _showOtpDialog.value = newPhone
+                    }
+                    hasEmailChange -> {
+                        // If email changed but not phone, show email verification dialog
+                        _showEmailDialog.value = newEmail
+                    }
+                    else -> {
+                        // Only username changed, update directly
+                        updateWithoutPhoneAndEmail(newUsername, hasUsernameChange)
+                    }
                 }
                 
             } catch (e: Exception) {
@@ -142,16 +159,15 @@ class ChangeInforViewModel : BaseViewModel() {
                     }
                 }
                 
-                // Update email if changed (note: requires re-authentication in production)
+                // Check if email also needs to be updated
                 val hasEmailChange = newEmail.isNotEmpty() && newEmail != firebaseUser.email
                 if (hasEmailChange) {
-                    try {
-                        // TODO: In production, should require re-authentication
-                        // firebaseUser.updateEmail(newEmail).await()
-                        // results.add("email")
-                        errors.add("email: Cần xác thực lại để thay đổi email")
-                    } catch (e: Exception) {
-                        errors.add("email: ${e.message}")
+                    // If email also changed, trigger email dialog after phone update
+                    if (results.contains("số điện thoại")) {
+                        _showEmailDialog.value = newEmail
+                        return@launch
+                    } else {
+                        errors.add("email: Cần xác thực để thay đổi email")
                     }
                 }
                 
@@ -178,28 +194,74 @@ class ChangeInforViewModel : BaseViewModel() {
         }
     }
     
-    fun updateWithoutPhone(newUsername: String, newEmail: String) {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        if (firebaseUser == null) {
-            _updateResult.value = "Không tìm thấy thông tin người dùng"
-            return
-        }
-        
-        val hasUsernameChange = newUsername.isNotEmpty() && newUsername != (firebaseUser.displayName ?: "")
-        val hasEmailChange = newEmail.isNotEmpty() && newEmail != (firebaseUser.email ?: "")
-        
-        updateWithoutPhone(newUsername, newEmail, hasUsernameChange, hasEmailChange)
-    }
-    
-    private fun updateWithoutPhone(
-        newUsername: String,
+    fun updateWithEmailCredential(
         newEmail: String,
-        hasUsernameChange: Boolean,
-        hasEmailChange: Boolean
+        newUsername: String
     ) {
         viewModelScope.launch {
             try {
-                val firebaseUser = FirebaseAuth.getInstance().currentUser!!
+                _isLoading.value = true
+                
+                val firebaseUser = FirebaseAuth.getInstance().currentUser
+                if (firebaseUser == null) {
+                    _updateResult.value = "Không tìm thấy thông tin người dùng"
+                    return@launch
+                }
+                
+                val results = mutableListOf<String>()
+                val errors = mutableListOf<String>()
+                
+                // Email is already updated in the dialog, just add to results
+                results.add("email")
+                
+                // Update username if changed
+                val hasUsernameChange = newUsername.isNotEmpty() && newUsername != (firebaseUser.displayName ?: "")
+                if (hasUsernameChange) {
+                    try {
+                        val profileUpdates = userProfileChangeRequest {
+                            displayName = newUsername
+                        }
+                        firebaseUser.updateProfile(profileUpdates).await()
+                        results.add("tên người dùng")
+                    } catch (e: Exception) {
+                        errors.add("tên người dùng: ${e.message}")
+                    }
+                }
+                
+                // Reload user info
+                loadCurrentUserInfo()
+                
+                // Create result message
+                val message = when {
+                    results.isNotEmpty() && errors.isEmpty() -> "Cập nhật thành công!"
+                    results.isNotEmpty() && errors.isNotEmpty() -> {
+                        "Đã cập nhật: ${results.joinToString(", ")}. Lỗi: ${errors.joinToString(", ")}"
+                    }
+                    errors.isNotEmpty() -> "Cập nhật thất bại: ${errors.joinToString(", ")}"
+                    else -> "Không có thay đổi nào được thực hiện"
+                }
+                
+                _updateResult.value = message
+                
+            } catch (e: Exception) {
+                _updateResult.value = "Lỗi cập nhật: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+    
+    fun updateWithoutPhoneAndEmail(newUsername: String, hasUsernameChange: Boolean) {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                
+                val firebaseUser = FirebaseAuth.getInstance().currentUser
+                if (firebaseUser == null) {
+                    _updateResult.value = "Không tìm thấy thông tin người dùng"
+                    return@launch
+                }
+                
                 val results = mutableListOf<String>()
                 val errors = mutableListOf<String>()
                 
@@ -216,28 +278,13 @@ class ChangeInforViewModel : BaseViewModel() {
                     }
                 }
                 
-                // Update email if changed (note: requires re-authentication in production)
-                if (hasEmailChange) {
-                    try {
-                        // TODO: In production, should require re-authentication
-                        // firebaseUser.updateEmail(newEmail).await()
-                        // results.add("email")
-                        errors.add("email: Cần xác thực lại để thay đổi email")
-                    } catch (e: Exception) {
-                        errors.add("email: ${e.message}")
-                    }
-                }
-                
                 // Reload user info
                 loadCurrentUserInfo()
                 
                 // Create result message
                 val message = when {
                     results.isNotEmpty() && errors.isEmpty() -> "Cập nhật thành công!"
-                    results.isNotEmpty() && errors.isNotEmpty() -> {
-                        "Đã cập nhật: ${results.joinToString(", ")}. Lỗi: ${errors.joinToString(", ")}"
-                    }
-                    errors.isNotEmpty() -> "Lỗi cập nhật: ${errors.joinToString(", ")}"
+                    errors.isNotEmpty() -> "Cập nhật thất bại: ${errors.joinToString(", ")}"
                     else -> "Không có thay đổi nào hợp lệ để cập nhật"
                 }
                 
@@ -245,6 +292,33 @@ class ChangeInforViewModel : BaseViewModel() {
                 
             } catch (e: Exception) {
                 _updateResult.value = "Lỗi cập nhật: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+    
+    fun updateWithoutPhone(newUsername: String, newEmail: String) {
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        if (firebaseUser == null) {
+            _updateResult.value = "Không tìm thấy thông tin người dùng"
+            return
+        }
+        
+        val hasUsernameChange = newUsername.isNotEmpty() && newUsername != (firebaseUser.displayName ?: "")
+        val hasEmailChange = newEmail.isNotEmpty() && newEmail != (firebaseUser.email ?: "")
+        
+        when {
+            hasEmailChange -> {
+                // Show email dialog for email change
+                _showEmailDialog.value = newEmail
+            }
+            hasUsernameChange -> {
+                // Only username change
+                updateWithoutPhoneAndEmail(newUsername, hasUsernameChange)
+            }
+            else -> {
+                _updateResult.value = "Không có thay đổi nào hợp lệ để cập nhật"
             }
         }
     }
@@ -264,5 +338,14 @@ class ChangeInforViewModel : BaseViewModel() {
     
     fun getCurrentEmail(): String {
         return FirebaseAuth.getInstance().currentUser?.email ?: ""
+    }
+    
+    fun isGoogleAuthUser(): Boolean {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        return currentUser?.providerData?.any { it.providerId == "google.com" } == true
+    }
+    
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 } 
