@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác Thực Để Thay Đổi Email"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Message -->
+    <TextView
+        android:id="@+id/tv_otp_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Để thay đổi email, vui lòng xác thực bằng mã OTP được gửi tới số điện thoại của bạn."
+        android:textSize="14sp"
+        android:textColor="@color/xam"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- New Email Display -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email mới:"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_new_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:boxCornerRadiusBottomEnd="@dimen/dp10"
+        app:boxCornerRadiusBottomStart="@dimen/dp10"
+        app:boxCornerRadiusTopEnd="@dimen/dp10"
+        app:boxCornerRadiusTopStart="@dimen/dp10"
+        app:boxStrokeColor="@color/color_AFB0B6"
+        app:boxStrokeWidth="@dimen/dp1"
+        app:helperTextEnabled="true"
+        app:helperText="Email mới sẽ được cập nhật sau khi xác thực OTP"
+        app:helperTextTextColor="@color/red_d61c1c"
+        app:hintTextColor="@color/color_AFB0B6">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_new_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:drawableStart="@drawable/ic_mail"
+            android:drawablePadding="@dimen/dp5"
+            android:enabled="false"
+            android:textSize="14sp"
+            android:lines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Phone Number Display -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số điện thoại xác thực:"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_phone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:boxCornerRadiusBottomEnd="@dimen/dp10"
+        app:boxCornerRadiusBottomStart="@dimen/dp10"
+        app:boxCornerRadiusTopEnd="@dimen/dp10"
+        app:boxCornerRadiusTopStart="@dimen/dp10"
+        app:boxStrokeColor="@color/color_AFB0B6"
+        app:boxStrokeWidth="@dimen/dp1"
+        app:hintTextColor="@color/color_AFB0B6">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại"
+            android:drawableStart="@drawable/ic_phone_1"
+            android:drawablePadding="@dimen/dp5"
+            android:enabled="false"
+            android:textSize="14sp"
+            android:lines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- OTP Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_otp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:boxCornerRadiusBottomEnd="@dimen/dp10"
+        app:boxCornerRadiusBottomStart="@dimen/dp10"
+        app:boxCornerRadiusTopEnd="@dimen/dp10"
+        app:boxCornerRadiusTopStart="@dimen/dp10"
+        app:boxStrokeColor="@color/color_AFB0B6"
+        app:boxStrokeWidth="@dimen/dp1"
+        app:hintTextColor="@color/color_AFB0B6"
+        app:helperTextEnabled="true"
+        app:helperText="Mã OTP có hiệu lực trong 60 giây"
+        app:helperTextTextColor="@color/orange"
+        app:counterEnabled="true"
+        app:counterMaxLength="6">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập mã OTP"
+            android:drawableStart="@drawable/ic_pass"
+            android:drawablePadding="@dimen/dp5"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textSize="14sp"
+            android:lines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Resend OTP -->
+    <TextView
+        android:id="@+id/tv_resend_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Gửi lại mã OTP"
+        android:textSize="14sp"
+        android:textColor="@color/orange"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textColor="@color/xam"
+            android:layout_marginEnd="12dp"
+            android:paddingHorizontal="@dimen/dp20"
+            android:paddingVertical="@dimen/dp10"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verify_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác Nhận"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:backgroundTint="@color/orange"
+            android:paddingHorizontal="@dimen/dp20"
+            android:paddingVertical="@dimen/dp10"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+</LinearLayout> 
