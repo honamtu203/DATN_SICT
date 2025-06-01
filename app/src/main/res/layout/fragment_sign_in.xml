@@ -19,13 +19,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintVertical_bias="0.17"
-        app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.11"
+        app:layout_constraintWidth_percent="0.4">
 
         <ImageView
             android:id="@+id/imageView"
@@ -150,6 +150,22 @@
         app:layout_constraintStart_toStartOf="@+id/login_with_email"
         app:layout_constraintTop_toBottomOf="@+id/login_with_email" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_with_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:paddingVertical="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp10"
+        android:onClick="@{v -> listener.openSignInPhone()}"
+        android:text="Đăng nhập bằng số điện thoại"
+        android:textColor="@color/black"
+        app:icon="@drawable/ic_phone"
+        app:iconTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/login_with_email"
+        app:layout_constraintStart_toStartOf="@+id/login_with_email"
+        app:layout_constraintTop_toBottomOf="@+id/login_with_google" />
+
     <com.google.android.material.circularreveal.CircularRevealLinearLayout
         android:id="@+id/circularRevealLinearLayout"
         android:layout_width="wrap_content"
@@ -157,7 +173,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/login_with_email"
         app:layout_constraintStart_toStartOf="@+id/login_with_email"
-        app:layout_constraintTop_toBottomOf="@id/login_with_google"
+        app:layout_constraintTop_toBottomOf="@id/login_with_phone"
         app:layout_constraintVertical_bias="0.2">
 
         <com.google.android.material.textview.MaterialTextView

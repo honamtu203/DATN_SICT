@@ -87,14 +87,24 @@ class EmailVerificationDialog(
         // Set appropriate message
         binding.tvEmailMessage.text = AuthProviderUtils.getEmailChangeDescription(providerType)
         
+        // Log detailed provider info for debugging
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val linkedProviders = AuthProviderUtils.getLinkedProviders(currentUser)
+        Log.d("EmailVerification", "Provider type: $providerType")
+        Log.d("EmailVerification", "Linked providers: $linkedProviders")
+        Log.d("EmailVerification", "Capabilities: $capabilities")
+        
         if (!capabilities.canChangeEmail) {
             // User cannot change email (Google, Facebook, etc.)
             setupDisabledEmailChangeUI()
         } else if (capabilities.requiresPasswordForEmailChange) {
-            // Email/Password user - requires password verification
+            // Email/Password user (including those with linked phone) - requires password verification
             setupPasswordRequiredUI()
+        } else if (capabilities.requiresOTPForEmailChange) {
+            // Phone-only user - requires OTP verification
+            setupOTPRequiredUI()
         } else {
-            // Phone user - no password required
+            // Fallback case
             setupNoPasswordRequiredUI()
         }
     }
@@ -152,6 +162,33 @@ class EmailVerificationDialog(
         
         // Set initial state
         updateConfirmButtonState(false)
+    }
+    
+    private fun setupOTPRequiredUI() {
+        // For phone-only users, they need OTP verification
+        // Show OTP dialog instead of current dialog
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val phoneNumber = currentUser?.phoneNumber
+        
+        if (phoneNumber.isNullOrEmpty()) {
+            Toast.makeText(context, "Không tìm thấy số điện thoại đã liên kết", Toast.LENGTH_SHORT).show()
+            onEmailCancelled()
+            dialog.dismiss()
+            return
+        }
+        
+        // Close current dialog and show OTP dialog
+        dialog.dismiss()
+        
+        // Show OTP verification dialog
+        val otpDialog = OTPEmailVerificationDialog(
+            context = context,
+            newEmail = newEmail,
+            phoneNumber = phoneNumber,
+            onEmailConfirmed = onEmailConfirmed,
+            onEmailCancelled = onEmailCancelled
+        )
+        otpDialog.show()
     }
     
     private fun setupNoPasswordRequiredUI() {
