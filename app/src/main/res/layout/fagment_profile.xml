@@ -11,199 +11,142 @@
             type="com.qltc.finace.view.main.profile.ProfileViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <!-- Header with back button and title -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button8"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:drawableStart="@drawable/ic_back"
+            android:onClick="@{() -> listener.onBackClick()}"
+            android:paddingLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:text="Tài Khoản"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/button8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button8" />
 
-            <!-- Button Back -->
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_back"
-                android:contentDescription="Back button"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:padding="8dp"
-                android:onClick="@{() -> listener.onBackClick()}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="8dp" />
+        <!-- Logo and User Info Section -->
+        <LinearLayout
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
 
-            <!-- Tiêu đề "Người Dùng" -->
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tài Khoản"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="@id/iv_back"
-                app:layout_constraintBottom_toBottomOf="@id/iv_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Ảnh đại diện tròn -->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_logo_wallet"
-                app:civ_border_width="0dp"
-                app:civ_border_color="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="24dp" />
+                app:civ_border_width="0dp" />
 
-            <!-- Tên người dùng -->
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp20"
                 android:text="@{viewModel.user.name ?? @string/default_user_name}"
-                android:textStyle="bold"
-                android:textSize="32sp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/iv_avatar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 tools:text="John Smith" />
+        </LinearLayout>
 
-            <!-- Container cho các menu items -->
-            <LinearLayout
-                android:id="@+id/ll_menu_container"
+        <!-- Menu Options -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp30"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:layout_constraintVertical_bias="0.2">
+
+            <!-- Edit Profile Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_user_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:backgroundTint="@color/white"
+                android:onClick="@{() -> listener.onEditProfileClick()}"
+                android:paddingVertical="@dimen/dp14"
+                android:text="Chỉnh Sửa Hồ Sơ"
+                android:textSize="@dimen/dp18"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_people"
+                app:iconTint="@null" />
 
-                <!-- Chỉnh sửa hồ sơ -->
-                <LinearLayout
-                    android:id="@+id/ll_edit_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> listener.onEditProfileClick()}"
-                    android:gravity="center_vertical">
+            <!-- Change Password Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:backgroundTint="@color/white"
+                android:onClick="@{() -> listener.onChangePasswordClick()}"
+                android:paddingVertical="@dimen/dp14"
+                android:text="Thay Đổi Mật Khẩu"
+                android:textSize="@dimen/dp18"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_pass"
+                app:iconTint="@null" />
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="Profile icon"
-                        android:src="@drawable/ic_people" />
+            <!-- Help Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:backgroundTint="@color/white"
+                android:onClick="@{() -> listener.onHelpClick()}"
+                android:paddingVertical="@dimen/dp14"
+                android:text="Trợ Giúp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp18"
+                app:icon="@drawable/ic_help"
+                app:iconTint="@null" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chỉnh Sửa Hồ Sơ"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="16dp" />
+            <!-- Logout Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:backgroundTint="@color/white"
+                android:onClick="@{() -> listener.onLogoutClick()}"
+                android:paddingVertical="@dimen/dp14"
+                android:text="Đăng Xuất"
+                android:textSize="@dimen/dp18"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_log_out"
+                app:iconTint="@null" />
 
-                </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <!-- Thay đổi mật khẩu -->
-                <LinearLayout
-                    android:id="@+id/ll_change_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> listener.onChangePasswordClick()}"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_pass"
-                        android:contentDescription="Password icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Thay Đổi Mật Khẩu"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="16dp" />
-
-                </LinearLayout>
-
-                <!-- Trợ giúp -->
-                <LinearLayout
-                    android:id="@+id/ll_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> listener.onHelpClick()}"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_help"
-                        android:contentDescription="Help icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Trợ Giúp"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="16dp" />
-
-                </LinearLayout>
-
-
-                <!-- Đăng xuất -->
-                <LinearLayout
-                    android:id="@+id/ll_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> listener.onLogoutClick()}"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_log_out"
-                        android:contentDescription="Logout icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Đăng Xuất"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_marginStart="16dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

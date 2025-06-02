@@ -118,7 +118,7 @@
         app:boxStrokeWidth="@dimen/dp1"
         app:hintTextColor="@color/color_AFB0B6"
         app:helperTextEnabled="true"
-        app:helperText="Mã OTP có hiệu lực trong 60 giây"
+        app:helperText="Nhập mã OTP gồm 6 chữ số"
         app:helperTextTextColor="@color/orange"
         app:counterEnabled="true"
         app:counterMaxLength="6">

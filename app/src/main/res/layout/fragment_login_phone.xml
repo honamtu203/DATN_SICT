@@ -42,28 +42,51 @@
             app:layout_constraintTop_toTopOf="@+id/imageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/phone"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_phone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="20dp"
-        android:gravity="left|center_vertical"
-        android:hint="+84"
-        android:inputType="phone|number"
+        app:boxCornerRadiusBottomEnd="@dimen/dp10"
+        app:boxCornerRadiusBottomStart="@dimen/dp10"
+        app:boxCornerRadiusTopEnd="@dimen/dp10"
+        app:boxCornerRadiusTopStart="@dimen/dp10"
+        app:boxStrokeColor="@color/color_AFB0B6"
+        app:boxStrokeWidth="@dimen/dp1"
+        app:helperTextEnabled="true"
+        app:helperTextTextColor="@color/red_d61c1c"
+        app:hintTextColor="@color/color_AFB0B6"
         app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại (+84)"
+            android:drawableStart="@drawable/ic_phone_1"
+            android:drawablePadding="@dimen/dp5"
+            android:inputType="phone"
+            android:lines="1"
+            android:textSize="14sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_submit"
+        android:layout_marginHorizontal="30dp"
+        android:backgroundTint="@color/orange"
         android:onClick="@{v->listener.loginToHome()}"
+        android:paddingVertical="@dimen/dp14"
         android:text="@string/confirm"
-        android:inputType="phone"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,9 +96,13 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Nhập vào số điện thoại"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
-        app:layout_constraintStart_toStartOf="@+id/phone" />
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/til_phone"
+        app:layout_constraintStart_toStartOf="@+id/til_phone" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button8"
@@ -94,10 +121,10 @@
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:textSize="12sp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
         android:textColor="@color/orange"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="@+id/til_phone"
+        app:layout_constraintTop_toBottomOf="@+id/til_phone" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

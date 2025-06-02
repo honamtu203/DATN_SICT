@@ -19,11 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintVertical_bias="0.15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.061">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -54,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo"
-            app:layout_constraintVertical_bias="0.2">
+            app:layout_constraintVertical_bias="0.0">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/user_name"
@@ -67,8 +68,8 @@
                 app:boxCornerRadiusTopStart="@dimen/dp10"
                 app:boxStrokeColor="@color/color_AFB0B6"
                 app:boxStrokeWidth="@dimen/dp1"
-                app:helperTextEnabled="true"
                 app:helperText="@{viewModel.errorEmail}"
+                app:helperTextEnabled="true"
                 app:helperTextTextColor="@color/red_d61c1c"
                 app:hintTextColor="@color/color_AFB0B6">
 
@@ -78,10 +79,10 @@
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_people"
                     android:drawablePadding="@dimen/dp5"
-                    android:inputType="textEmailAddress"
                     android:hint="@string/label_email"
-                    android:text="@={viewModel.emailInput}"
+                    android:inputType="textEmailAddress"
                     android:lines="1"
+                    android:text="@={viewModel.emailInput}"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,11 +108,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@={viewModel.passwordInput}"
                     android:drawableStart="@drawable/ic_pass"
                     android:drawablePadding="@dimen/dp5"
-                    android:hint="@string/label_password" />
+                    android:hint="@string/label_password"
+                    android:text="@={viewModel.passwordInput}" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/confirm_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -134,10 +136,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@={viewModel.confirmPassword}"
                     android:drawableStart="@drawable/ic_pass"
                     android:drawablePadding="@dimen/dp5"
-                    android:hint="@string/label_re_password" />
+                    android:hint="@string/label_re_password"
+                    android:text="@={viewModel.confirmPassword}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -145,9 +147,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp30"
+                android:enabled="@{viewModel.isEnableButtonSignUp()}"
                 android:gravity="center"
                 android:onClick="@{ v -> listener.signUp()}"
-                android:enabled="@{viewModel.isEnableButtonSignUp()}"
                 android:paddingHorizontal="@dimen/dp30"
                 android:paddingVertical="@dimen/dp14"
                 android:text="Đăng ký" />
@@ -176,6 +178,19 @@
                     app:iconTint="@null"
                     android:backgroundTint="@color/white"
                     app:icon="@drawable/ic_google" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/login_with_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:textColor="@color/black"
+                    android:paddingVertical="@dimen/dp10"
+                    android:text="Đăng ký với số điện thoại"
+                    android:onClick="@{v -> listener.openSignInPhone()}"
+                    app:iconTint="@null"
+                    android:backgroundTint="@color/white"
+                    app:icon="@drawable/ic_phone" />
 
         </LinearLayout>
 

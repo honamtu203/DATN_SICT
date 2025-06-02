@@ -146,6 +146,10 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel>(), S
         Toast.makeText(requireContext(), "Chức năng đang phát triển", Toast.LENGTH_SHORT).show()
     }
 
+    override fun openSignInPhone() {
+        findNavController().navigate(R.id.sign_in_to_login_phone)
+    }
+
     override fun openApp() {
         val intent = Intent(getOwnerActivity<AuthenticationActivity>(), HomeActivity::class.java)
         getOwnerActivity<AuthenticationActivity>()?.startActivity(intent)
