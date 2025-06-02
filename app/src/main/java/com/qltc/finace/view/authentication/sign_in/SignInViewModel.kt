@@ -62,7 +62,21 @@ class SignInViewModel @Inject constructor(
                     callback(true, "")
                 }
                 else {
-                    callback(false, task.exception?.message.toString())
+                    val errorMessage = when {
+                        task.exception?.message?.contains("password is invalid") == true ||
+                        task.exception?.message?.contains("wrong password") == true -> 
+                            "Mật khẩu không chính xác"
+                        task.exception?.message?.contains("no user record") == true -> 
+                            "Không tìm thấy tài khoản với email này"
+                        task.exception?.message?.contains("badly formatted") == true -> 
+                            "Email không đúng định dạng"
+                        task.exception?.message?.contains("INVALID_LOGIN_CREDENTIALS") == true ->
+                            "Email hoặc mật khẩu không chính xác"
+                        task.exception?.message?.contains("too-many-requests") == true ->
+                            "Quá nhiều lần thử đăng nhập không thành công. Vui lòng thử lại sau"
+                        else -> "Đăng nhập thất bại: ${task.exception?.message}"
+                    }
+                    callback(false, errorMessage)
                 }
             }
         }

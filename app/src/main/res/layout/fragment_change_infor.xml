@@ -205,23 +205,48 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Nút Lưu Thay Đổi -->
+
+            <!-- Nút Xóa Tài Khoản -->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSaveChanges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
                 android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/orange"
+                android:onClick="@{() -> listener.onSaveChangesClick()}"
+                android:paddingHorizontal="@dimen/dp40"
+                android:paddingVertical="@dimen/dp14"
                 android:text="Lưu Thay Đổi"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:backgroundTint="@color/orange"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilEmail"
+                app:layout_constraintVertical_bias="0.065" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp50"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/red_d61c1c"
+                android:onClick="@{() -> listener.onDeleteAccountClick()}"
                 android:paddingHorizontal="@dimen/dp40"
                 android:paddingVertical="@dimen/dp14"
-                android:onClick="@{() -> listener.onSaveChangesClick()}"
-                app:layout_constraintTop_toBottomOf="@id/tilEmail"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="Xóa Tài Khoản"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSaveChanges"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

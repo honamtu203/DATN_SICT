@@ -184,4 +184,9 @@ class FragmentChangeInfor : BaseFragment<FragmentChangeInforBinding, ChangeInfor
             viewModel.updateUserInfo(finalUsername, finalPhone, finalEmail)
         }
     }
+
+    override fun onDeleteAccountClick() {
+        // TODO: Implement delete account logic
+        Toast.makeText(requireContext(), "Chức năng đang phát triển", Toast.LENGTH_SHORT).show()
+    }
 } 

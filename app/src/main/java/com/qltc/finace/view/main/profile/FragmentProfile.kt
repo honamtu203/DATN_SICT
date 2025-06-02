@@ -35,7 +35,7 @@ class FragmentProfile : BaseFragment<FagmentProfileBinding,ProfileViewModel>(), 
     }
 
     override fun onChangePasswordClick() {
-        // TODO: Navigate to change password screen
+        findNavController().navigate(R.id.frg_change_password)
     }
 
     override fun onHelpClick() {

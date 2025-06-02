@@ -4,4 +4,5 @@ interface ChangeInforListener {
     fun onBackClick()
     fun onEditAvatarClick()
     fun onSaveChangesClick()
+    fun onDeleteAccountClick()
 } 
