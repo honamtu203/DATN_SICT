@@ -7,4 +7,5 @@ interface SignInListener {
     fun openApp()
     fun openSignUp()
     fun signUpWithEmail()
+    fun onForgotPasswordClick()
 }

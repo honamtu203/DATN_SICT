@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/fag_sign_in">
     <fragment
@@ -8,6 +9,9 @@
         android:name="com.qltc.finace.view.authentication.sign_in.SignInFragment">
         <action android:id="@+id/sign_in_to_login_phone"
             app:destination="@+id/fag_login_phone"/>
+        <action
+            android:id="@+id/sign_in_to_forgot_password"
+            app:destination="@id/fag_forgot_password" />
     </fragment>
     <fragment
         android:id="@+id/fag_login_phone"
@@ -17,6 +21,12 @@
             app:destination="@id/fag_otp"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/fag_forgot_password"
+        android:name="com.qltc.finace.view.authentication.forgot_password.FragmentForgotPassword"
+        android:label="FragmentForgotPassword"/>
+
 
     <fragment
         android:id="@+id/fag_otp"

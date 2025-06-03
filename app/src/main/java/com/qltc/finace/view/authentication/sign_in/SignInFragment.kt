@@ -150,4 +150,8 @@ class SignInFragment : BaseFragment<FragmentSignInBinding,SignInViewModel>(),Sig
         }
     }
 
+    override fun onForgotPasswordClick() {
+        findNavController().navigate(R.id.sign_in_to_forgot_password)
+    }
+
 }

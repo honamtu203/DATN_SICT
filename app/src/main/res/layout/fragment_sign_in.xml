@@ -46,18 +46,19 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/login_with_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginHorizontal="@dimen/dp30"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintVertical_bias="0.071">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/user_name"
@@ -87,52 +88,57 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_store"
+            android:id="@+id/password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
-            android:drawablePadding="@dimen/dp5"
-            android:gravity="center|start"
             app:boxCornerRadiusBottomEnd="@dimen/dp10"
             app:boxCornerRadiusBottomStart="@dimen/dp10"
             app:boxCornerRadiusTopEnd="@dimen/dp10"
             app:boxCornerRadiusTopStart="@dimen/dp10"
-            app:boxStrokeColor="@color/grayish"
+            app:boxStrokeColor="@color/color_AFB0B6"
             app:boxStrokeWidth="@dimen/dp1"
+            app:helperTextEnabled="true"
             app:helperTextTextColor="@color/red_d61c1c"
             app:hintTextColor="@color/color_AFB0B6"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@={viewModel.passwordInput}"
+                android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_pass"
                 android:drawablePadding="@dimen/dp5"
-                android:hint="@string/label_password" />
+                android:hint="@string/label_password"
+                android:inputType="textPassword"
+                android:text="@={viewModel.passwordInput}" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
+            android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:paddingVertical="@dimen/dp10"
-            android:text="Quên mật khẩu" />
+            android:layout_marginTop="@dimen/dp8"
+            android:onClick="@{() -> listener.onForgotPasswordClick()}"
+            android:text="Quên mật khẩu?"
+            android:textColor="@color/orange"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp20"
+            android:enabled="@{viewModel.isEnableButton}"
             android:gravity="center"
             android:onClick="@{ v -> listener.signUpWithEmail() }"
-            android:enabled="@{viewModel.isEnableButton}"
             android:paddingHorizontal="@dimen/dp40"
             android:paddingVertical="@dimen/dp14"
             android:text="Đăng nhập" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_with_google"
