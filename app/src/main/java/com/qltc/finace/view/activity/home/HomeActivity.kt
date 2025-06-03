@@ -1,14 +1,10 @@
 package com.qltc.finace.view.activity.home
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -18,18 +14,12 @@ import com.qltc.finace.base.BaseActivity
 import com.qltc.finace.databinding.ActivityMainBinding
 import com.qltc.finace.databinding.NavHeaderMainBinding
 import com.qltc.finace.view.activity.authen.AuthenticationActivity
-import com.qltc.finace.view.main.webview.ChromeCustomTabHelper
 import com.qltc.finace.view.main.webview.NotebookLMOptionDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.firestore.PersistentCacheSettings
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -57,7 +47,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                 this@HomeActivity.viewBinding.bottomNav.visibility = View.GONE
             } else {
                 when (navController?.currentDestination?.id) {
-                    R.id.fag_home,
+                    R.id.fag_enter,
                     R.id.fag_calender,
                     R.id.fag_report,
                     R.id.fag_profile -> {
@@ -94,8 +84,8 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
             }
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.fag_home -> {
-                        navController?.navigate(R.id.fag_home)
+                    R.id.fag_enter -> {
+                        navController?.navigate(R.id.fag_enter)
                         true
                     }
 
@@ -124,7 +114,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
             }
             navController?.addOnDestinationChangedListener{_,des,_ ->
                 when(des.id) {
-                    R.id.fag_home,
+                    R.id.fag_enter,
                     R.id.fag_calender,
                     R.id.fag_report,
                     R.id.fag_profile -> {
@@ -144,7 +134,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
         viewBinding.navigationViewDrawer.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.item_drawer_home -> {
-                    navController?.navigate(R.id.fag_home)
+                    navController?.navigate(R.id.fag_enter)
                     true
                 }
                 R.id.item_drawer_calendar -> {

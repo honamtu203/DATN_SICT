@@ -9,6 +9,11 @@
         android:iconTint="@color/orange"
         android:title="@string/home" />
     <item
+        android:id="@+id/item_drawer_enter"
+        android:icon="@drawable/ic_input"
+        android:iconTint="@color/orange"
+        android:title="@string/input" />
+    <item
         android:id="@+id/item_drawer_calendar"
         android:icon="@drawable/ic_calendar"
         android:iconTint="@color/orange"

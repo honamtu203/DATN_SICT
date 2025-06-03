@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+<!--    <item-->
+<!--        android:id="@+id/fag_home"-->
+<!--        android:iconTint="@color/orange"-->
+<!--        android:icon="@drawable/ic_home"-->
+<!--        android:title="@string/home" />-->
+
     <item
-        android:id="@+id/fag_home"
+        android:id="@+id/fag_enter"
         android:iconTint="@color/orange"
         android:icon="@drawable/ic_input"
         android:title="@string/input" />

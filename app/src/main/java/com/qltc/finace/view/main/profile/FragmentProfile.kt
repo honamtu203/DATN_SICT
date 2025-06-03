@@ -27,7 +27,7 @@ class FragmentProfile : BaseFragment<FagmentProfileBinding,ProfileViewModel>(), 
     }
 
     override fun onBackClick() {
-        findNavController().navigate(R.id.fag_home)
+        findNavController().navigate(R.id.fag_enter)
     }
 
     override fun onEditProfileClick() {

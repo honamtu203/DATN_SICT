@@ -16,11 +16,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ShareHomeViewModel @Inject constructor(
+class ShareEnterViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     private val expenseRepository: ExpenseRepository,
     private val incomeRepository: InComeRepository
-) : BaseHomeViewModel() {
+) : BaseEnterViewModel() {
 
     var isAddExpense = SingleLiveData(false)
     var isAddIncome = SingleLiveData(false)
@@ -32,8 +32,8 @@ class ShareHomeViewModel @Inject constructor(
                 listCategoryExpense.postValue(it)
             }
         }
-
     }
+
     fun getCategoryIncome() {
         viewModelScope.launch(Dispatchers.IO) {
             val it = categoryRepository.getAllCategoryByType(Fb.CategoryIncome)
@@ -43,6 +43,7 @@ class ShareHomeViewModel @Inject constructor(
             }
         }
     }
+
     fun submitExpense() {
         val expense = Expense(
             idCategory = categoryExpenseSelected?.idCategory,
@@ -57,6 +58,7 @@ class ShareHomeViewModel @Inject constructor(
             }
         }
     }
+
     fun submitIncome() {
         val income = Income(
             idCategory = categoryIncomeSelected?.idCategory,
@@ -71,4 +73,4 @@ class ShareHomeViewModel @Inject constructor(
             }
         }
     }
-}
+} 

@@ -1,5 +1,5 @@
 package com.qltc.finace.view.main.home
 
-interface HomeListener {
+interface EnterListener {
     fun onClickInputData()
-}
+} 

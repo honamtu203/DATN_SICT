@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="listener"
-            type="com.qltc.finace.view.main.home.HomeListener" />
+            type="com.qltc.finace.view.main.home.EnterListener" />
         <variable
             name="viewModel"
-            type="com.qltc.finace.view.main.home.ShareHomeViewModel" />
+            type="com.qltc.finace.view.main.home.ShareEnterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,4 +81,4 @@
             app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</layout> 

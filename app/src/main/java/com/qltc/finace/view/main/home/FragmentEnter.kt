@@ -6,19 +6,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.qltc.finace.R
 import com.qltc.finace.base.BaseFragment
-import com.qltc.finace.databinding.FagmentHomeBinding
+import com.qltc.finace.databinding.FragmentEnterBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentHome : BaseFragment<FagmentHomeBinding, BaseHomeViewModel>(),HomeListener {
-    override val layoutID: Int = R.layout.fagment_home
-    override val viewModel: ShareHomeViewModel by activityViewModels()
+class FragmentEnter : BaseFragment<FragmentEnterBinding, BaseEnterViewModel>(), EnterListener {
+    override val layoutID: Int = R.layout.fragment_enter
+    override val viewModel: ShareEnterViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.apply {
-            listener = this@FragmentHome
-            viewModel = this@FragmentHome.viewModel
+            listener = this@FragmentEnter
+            viewModel = this@FragmentEnter.viewModel
         }
         viewBinding.vpgHome.adapter = ViewPagerAdapter(this)
 
@@ -55,5 +55,4 @@ class FragmentHome : BaseFragment<FagmentHomeBinding, BaseHomeViewModel>(),HomeL
             viewModel.submitIncome()
         }
     }
-}
-
+} 

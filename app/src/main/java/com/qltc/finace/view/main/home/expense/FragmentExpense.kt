@@ -14,14 +14,14 @@ import com.qltc.finace.data.entity.Category
 import com.qltc.finace.databinding.FragmentExpenseBinding
 import com.qltc.finace.extension.formatDateTime
 import com.qltc.finace.view.adapter.AdapterExpense
-import com.qltc.finace.view.main.home.ShareHomeViewModel
+import com.qltc.finace.view.main.home.ShareEnterViewModel
 import com.qltc.finace.view.main.home.category.FragmentCategoryDetail
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
 @AndroidEntryPoint
-class FragmentExpense : BaseFragment<FragmentExpenseBinding,ShareHomeViewModel>(), ExpenseListener,AdapterExpense.OnClickListener {
-    override val viewModel: ShareHomeViewModel by activityViewModels()
+class FragmentExpense : BaseFragment<FragmentExpenseBinding,ShareEnterViewModel>(), ExpenseListener,AdapterExpense.OnClickListener {
+    override val viewModel: ShareEnterViewModel by activityViewModels()
     override val layoutID: Int = R.layout.fragment_expense
     val adapter by lazy {   AdapterExpense(this) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

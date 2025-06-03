@@ -9,11 +9,11 @@ import com.google.firebase.Timestamp
 import java.time.LocalDate
 import java.util.Date
 
-abstract class BaseHomeViewModel : BaseViewModel() {
-    var typeCurrentFragment : Int = FragmentHome.FRAGMENT_EXPENSE
+abstract class BaseEnterViewModel : BaseViewModel() {
+    var typeCurrentFragment : Int = FragmentEnter.FRAGMENT_EXPENSE
         set(value) {
             field = value
-            if (field == FragmentHome.FRAGMENT_EXPENSE) {
+            if (field == FragmentEnter.FRAGMENT_EXPENSE) {
                 checkValidDataExpense()
             }
             else {
@@ -55,8 +55,6 @@ abstract class BaseHomeViewModel : BaseViewModel() {
         isEnableButtonAddAtToolbar.postValue(false)
     }
 
-
-
     var isEnableButtonAddIncome = MutableLiveData(false)
     var itemCategoryIncomeSelected = -1
     var listCategoryIncome = MutableLiveData<MutableList<Category>>(mutableListOf())
@@ -89,5 +87,4 @@ abstract class BaseHomeViewModel : BaseViewModel() {
         isEnableButtonAddIncome.postValue(false)
         isEnableButtonAddAtToolbar.postValue(false)
     }
-
-}
+} 

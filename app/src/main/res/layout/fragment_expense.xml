@@ -10,7 +10,7 @@
             type="com.qltc.finace.view.main.home.expense.ExpenseListener" />
         <variable
             name="viewModel"
-            type="com.qltc.finace.view.main.home.ShareHomeViewModel" />
+            type="com.qltc.finace.view.main.home.ShareEnterViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"

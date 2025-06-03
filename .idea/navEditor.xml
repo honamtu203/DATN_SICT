@@ -113,12 +113,12 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="fag_home">
+                  <entry key="fag_enter">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="744" />
+                            <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
                         </option>

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.qltc.finace.view.main.home.ShareHomeViewModel" />
+            type="com.qltc.finace.view.main.home.ShareEnterViewModel" />
         <variable
             name="listener"
             type="com.qltc.finace.view.main.home.income.IncomeListener" />

@@ -15,14 +15,14 @@ import com.qltc.finace.databinding.FragmentIncomeBinding
 import com.qltc.finace.extension.formatDateTime
 
 import com.qltc.finace.view.adapter.AdapterIncome
-import com.qltc.finace.view.main.home.ShareHomeViewModel
+import com.qltc.finace.view.main.home.ShareEnterViewModel
 import com.qltc.finace.view.main.home.category.FragmentCategoryDetail
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
 @AndroidEntryPoint
-class IncomeFragment : BaseFragment<FragmentIncomeBinding,ShareHomeViewModel>(),IncomeListener,AdapterIncome.OnClickListener {
-    override val viewModel: ShareHomeViewModel by activityViewModels()
+class IncomeFragment : BaseFragment<FragmentIncomeBinding,ShareEnterViewModel>(),IncomeListener,AdapterIncome.OnClickListener {
+    override val viewModel: ShareEnterViewModel by activityViewModels()
     override val layoutID: Int = R.layout.fragment_income
 
     val adapter by lazy {  AdapterIncome(this) }
