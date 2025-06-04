@@ -27,15 +27,15 @@ class FragmentProfile : BaseFragment<FagmentProfileBinding,ProfileViewModel>(), 
     }
 
     override fun onBackClick() {
-        findNavController().navigate(R.id.fag_enter)
+        findNavController().navigate(R.id.frag_home)
     }
 
     override fun onEditProfileClick() {
-        findNavController().navigate(R.id.frg_change_infor)
+        findNavController().navigate(R.id.frag_change_info)
     }
 
     override fun onChangePasswordClick() {
-        findNavController().navigate(R.id.frg_change_password)
+        findNavController().navigate(R.id.frag_change_password)
     }
 
     override fun onHelpClick() {

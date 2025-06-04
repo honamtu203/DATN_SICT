@@ -1,13 +1,13 @@
 <resources>
     <string name="client_id" translatable="false">657768385130-iv29rnsb2nj575chv2huhp8g21kdvh4b.apps.googleusercontent.com</string>
-    <string name="app_name">QuanLyThuChi</string>
+    <string name="app_name">QLTC</string>
     <string name="date">Thời gian</string>
     <string name="month">Tháng </string>
     <string name="note_entered">Nhập ghi chú</string>
     <string name="note">Ghi chú</string>
-    <string name="expense">Khoản chi</string>
+    <string name="expense">Chi tiêu</string>
     <string name="category">Danh mục</string>
-    <string name="income">Khoản thu</string>
+    <string name="income">Thu nhập</string>
     <string name="submit">Nhập</string>
     <string name="home">Home</string>
     <string name="calendar">Lịch</string>
@@ -15,7 +15,7 @@
     <string name="profile">Cá nhân</string>
     <string name="notebooklm">NotebookLM</string>
     <string name="no_data">No Date</string>
-    <string name="input">Nhập</string>
+    <string name="input">Nhập dữ liệu</string>
     <string name="total">Còn lại</string>
     <string name="balance">Ví của bạn</string>
     <string name="sign_in_with_facebook">Sign in with Facebook</string>
@@ -84,4 +84,5 @@
     <string name="date_range_error">Ngày bắt đầu phải trước ngày kết thúc</string>
     <string name="apply">Áp dụng</string>
     <string name="default_user_name">Người dùng</string>
+    <string name="enter_title">Nhập thu chi</string>
 </resources>

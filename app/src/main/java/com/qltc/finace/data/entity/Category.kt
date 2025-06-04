@@ -34,6 +34,6 @@ fun categoryIncome() = arrayListOf(
     Category(title = "Tiền thưởng", type = Fb.CategoryIncome, icon = Icon.ic_2),
     Category(title = "Tiền phụ cấp", type = Fb.CategoryIncome, icon = Icon.ic_25),
     Category(title = "Tiền Đầu tư", type = Fb.CategoryIncome, icon = Icon.ic_6),
-    Category(title = "Thu nhập khác", type = Fb.CategoryIncome, icon = Icon.ic_33),
+    Category(title = "Thu nhập khác", type = Fb.CategoryIncome, icon = Icon.ic_32),
 )
 

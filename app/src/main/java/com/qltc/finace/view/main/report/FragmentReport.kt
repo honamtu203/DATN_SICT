@@ -80,7 +80,7 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
             
             // Cập nhật hiển thị tháng/năm trên pickTime
             val monthText = "Tháng ${selectedYearMonth.monthValue}/${selectedYearMonth.year}"
-            viewBinding.pickTime.text = monthText
+                viewBinding.pickTime.text = monthText
             
                 // Cập nhật dữ liệu dựa vào tab hiện tại
                 if (viewModel?.typeReport?.value == CHOOSE_EXPENSE) {

@@ -154,7 +154,7 @@ class FragmentWebView : BaseFragment<FragmentWebviewBinding, WebViewViewModel>()
         if (viewBinding.webView.canGoBack()) {
             viewBinding.webView.goBack()
         } else {
-            findNavController().navigate(R.id.fag_enter)
+            findNavController().navigate(R.id.frag_home)
         }
     }
 
@@ -163,7 +163,7 @@ class FragmentWebView : BaseFragment<FragmentWebviewBinding, WebViewViewModel>()
     }
 
     override fun onCloseClick() {
-        findNavController().navigate(R.id.fag_enter)
+        findNavController().navigate(R.id.frag_enter)
     }
 
     override fun onDestroyView() {

@@ -22,7 +22,7 @@ object NotebookLMOptionDialog {
         builder.setNegativeButton("📱 WebView") { dialog, _ ->
             // Open with improved WebView
             val bundle = bundleOf("url" to "https://notebooklm.google.com/notebook/9f6ff707-0fbb-44ce-bf94-358fc51fc0b9?_gl=1*nxffyy*_ga*OTE5NDI3NzQ2LjE3NDg2NzI4NzI.*_ga_W0LDH41ZCB*czE3NDg2NzI4NzIkbzEkZzEkdDE3NDg2NzI4NzIkajYwJGwwJGgw&original_referer=https:%2F%2Fnotebooklm.google%23&pli=1")
-            navController?.navigate(R.id.frg_webview, bundle)
+            navController?.navigate(R.id.frag_webview, bundle)
             dialog.dismiss()
         }
         

@@ -130,7 +130,7 @@ class FragmentChangeInfor : BaseFragment<FragmentChangeInforBinding, ChangeInfor
     }
 
     override fun onBackClick() {
-        findNavController().navigate(R.id.fag_profile)
+        findNavController().navigate(R.id.frag_profile)
     }
 
     override fun onEditAvatarClick() {

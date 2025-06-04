@@ -73,4 +73,4 @@ class ShareEnterViewModel @Inject constructor(
             }
         }
     }
-} 
+}

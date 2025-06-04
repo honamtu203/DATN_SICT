@@ -22,7 +22,7 @@ class FragmentHelper : BaseFragment<FragmentHelperBinding, HelperViewModel>(), H
     }
 
     override fun onBackClick() {
-        findNavController().navigate(R.id.fag_profile)
+        findNavController().navigate(R.id.frag_profile)
     }
 
     override fun onFacebookHelpClick() {

@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--    <item-->
-<!--        android:id="@+id/fag_home"-->
-<!--        android:iconTint="@color/orange"-->
-<!--        android:icon="@drawable/ic_home"-->
-<!--        android:title="@string/home" />-->
-
     <item
-        android:id="@+id/fag_enter"
+        android:id="@+id/frag_home"
         android:iconTint="@color/orange"
-        android:icon="@drawable/ic_input"
-        android:title="@string/input" />
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+
+<!--    <item-->
+<!--        android:id="@+id/frag_enter"-->
+<!--        android:iconTint="@color/orange"-->
+<!--        android:icon="@drawable/ic_input"-->
+<!--        android:title="@string/input" />-->
 
     <item
-        android:id="@+id/fag_calender"
+        android:id="@+id/frag_calendar"
         android:iconTint="@color/orange"
         android:icon="@drawable/ic_calendar_month"
         android:title="@string/calendar" />
 
     <item
-        android:id="@+id/fag_report"
+        android:id="@+id/frag_report"
         android:iconTint="@color/orange"
         android:icon="@drawable/ic_report"
         android:title="@string/report" />
 
     <item
-        android:id="@+id/fag_notebook"
+        android:id="@+id/frag_notebook"
         android:iconTint="@color/orange"
         android:icon="@drawable/ic_notebooklm"
         android:title="@string/notebooklm" />
 
     <item
-        android:id="@+id/fagg_profile"
+        android:id="@+id/frag_profile"
         android:iconTint="@color/orange"
         android:icon="@drawable/ic_31"
         android:title="@string/profile"/>

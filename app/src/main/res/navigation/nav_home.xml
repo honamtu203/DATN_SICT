@@ -2,26 +2,35 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_main_app"
-    app:startDestination="@id/fag_enter">
+    app:startDestination="@id/frag_home">
     <fragment
-        android:id="@+id/fag_calender"
+        android:id="@+id/frag_calendar"
         android:name="com.qltc.finace.view.main.calendar.CalendarFragment">
 
     </fragment>
     <fragment
-        android:id="@+id/fag_report"
+        android:id="@+id/frag_report"
         android:name="com.qltc.finace.view.main.report.FragmentReport">
 
     </fragment>
     <fragment
-        android:id="@+id/fag_profile"
+        android:id="@+id/frag_profile"
         android:name="com.qltc.finace.view.main.profile.FragmentProfile"
         android:label="FragmentProfile">
 
     </fragment>
     <fragment
-        android:id="@+id/fag_enter"
+        android:id="@+id/frag_enter"
         android:name="com.qltc.finace.view.main.home.FragmentEnter">
+        <argument
+            android:name="selected_tab"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_notebook"
+        android:name="com.qltc.finace.view.main.webview.FragmentWebView"
+        android:label="NotebookLM">
 
     </fragment>
     <fragment
@@ -56,16 +65,20 @@
         android:name="com.qltc.finace.view.main.helper.FragmentFAQ"
         android:label="FragmentFAQ" />
     <fragment
-        android:id="@+id/frg_webview"
+        android:id="@+id/frag_webview"
         android:name="com.qltc.finace.view.main.webview.FragmentWebView"
         android:label="NotebookLM" />
     <fragment
-        android:id="@+id/frg_change_infor"
+        android:id="@+id/frag_change_info"
         android:name="com.qltc.finace.view.main.profile.FragmentChangeInfor"
         android:label="Chỉnh Sửa Hồ Sơ" />
     <fragment
-        android:id="@+id/frg_change_password"
+        android:id="@+id/frag_change_password"
         android:name="com.qltc.finace.view.main.profile.FragmentChangePassword"
         android:label="Thay Đổi Mật Khẩu" />
+    <fragment
+        android:id="@+id/frag_home"
+        android:name="com.qltc.finace.view.main.home.FragmentHome"
+        android:label="FragmentHome" />
 
 </navigation>

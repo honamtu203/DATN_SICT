@@ -22,127 +22,150 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
+class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() {
     override val viewModel: HomeActivityViewModel by viewModels()
     override val layoutId: Int = R.layout.activity_main
     private lateinit var googleSignInClient: GoogleSignInClient
-    private var navHostFragment : NavHostFragment?= null
-    private var navController : NavController?=null
-    val headerDrawer : NavHeaderMainBinding by lazy {  NavHeaderMainBinding.bind(viewBinding.navigationViewDrawer.getHeaderView(0))}
+    private var navHostFragment: NavHostFragment? = null
+    private var navController: NavController? = null
+    val headerDrawer: NavHeaderMainBinding by lazy { NavHeaderMainBinding.bind(viewBinding.navigationViewDrawer.getHeaderView(0)) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(viewBinding.root)
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_home_container) as NavHostFragment
-        navController = navHostFragment?.navController
-        navigationBottom()
+        try {
+            setContentView(viewBinding.root)
+            setupNavigation()
+            setupKeyboardVisibilityListener()
+            setupDrawerLayout()
+        } catch (e: Exception) {
+            // Nếu có lỗi khởi tạo, quay về màn Authentication
+            startActivity(Intent(this, AuthenticationActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun setupNavigation() {
+        try {
+            navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_home_container) as? NavHostFragment
+            navController = navHostFragment?.navController
+
+            if (navController == null) {
+                throw Exception("Navigation initialization failed")
+            }
+
+            viewBinding.bottomNav.apply {
+                navController?.let {
+                    setupWithNavController(it)
+                }
+                setOnItemSelectedListener { item ->
+                    when (item.itemId) {
+                        R.id.frag_home -> {
+                            navController?.navigate(R.id.frag_home)
+                            true
+                        }
+//                        R.id.frag_enter -> {
+//                            navController?.navigate(R.id.frag_enter)
+//                            true
+//                        }
+                        R.id.frag_calendar -> {
+                            navController?.navigate(R.id.frag_calendar)
+                            true
+                        }
+                        R.id.frag_report -> {
+                            navController?.navigate(R.id.frag_report)
+                            true
+                        }
+                        R.id.frag_notebook -> {
+                            NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
+                            true
+                        }
+                        R.id.frag_profile -> {
+                            viewBinding.drawer.openDrawer(GravityCompat.END)
+                            false
+                        }
+                        else -> {
+                            viewBinding.drawer.openDrawer(GravityCompat.END)
+                            false
+                        }
+                    }
+                }
+            }
+
+            navController?.addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.frag_home,
+//                    R.id.frag_enter,
+                    R.id.frag_calendar,
+                    R.id.frag_report,
+                    R.id.frag_notebook,
+                    R.id.frag_profile -> {
+                        viewBinding.bottomNav.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        viewBinding.bottomNav.visibility = View.GONE
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            // Log lỗi và xử lý phù hợp
+            e.printStackTrace()
+        }
+    }
+
+    private fun setupKeyboardVisibilityListener() {
         viewBinding.root.viewTreeObserver.addOnGlobalLayoutListener {
-            val rect = Rect()
-            viewBinding.root.getWindowVisibleDisplayFrame(rect)
-            val screenHeight: Int = viewBinding.root.rootView.height
-            val keypadHeight = screenHeight - rect.bottom
-            if (keypadHeight > screenHeight * 0.15) {
-                this@HomeActivity.viewBinding.bottomNav.visibility = View.GONE
-            } else {
-                when (navController?.currentDestination?.id) {
-                    R.id.fag_enter,
-                    R.id.fag_calender,
-                    R.id.fag_report,
-                    R.id.fag_profile -> {
-                        this@HomeActivity.viewBinding.bottomNav.visibility = View.VISIBLE
-                    }
+            try {
+                val rect = Rect()
+                viewBinding.root.getWindowVisibleDisplayFrame(rect)
+                val screenHeight: Int = viewBinding.root.rootView.height
+                val keypadHeight = screenHeight - rect.bottom
 
-                    else -> {
-                        this@HomeActivity.viewBinding.bottomNav.visibility = View.GONE
+                if (keypadHeight > screenHeight * 0.15) {
+                    viewBinding.bottomNav.visibility = View.GONE
+                } else {
+                    navController?.currentDestination?.id?.let { destinationId ->
+                        when (destinationId) {
+                            R.id.frag_home,
+//                            R.id.frag_enter,
+                            R.id.frag_calendar,
+                            R.id.frag_report,
+                            R.id.frag_notebook,
+                            R.id.frag_profile -> {
+                                viewBinding.bottomNav.visibility = View.VISIBLE
+                            }
+                            else -> {
+                                viewBinding.bottomNav.visibility = View.GONE
+                            }
+                        }
                     }
                 }
-            }
-
-        }
-        setUpDrawerLayout()
-//        val settings = FirebaseFirestoreSettings.Builder()
-//            .setLocalCacheSettings(PersistentCacheSettings.newBuilder().setSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED).build())
-//            .build()
-//        Firebase.firestore.firestoreSettings = settings
-//        Firebase.firestore.persistentCacheIndexManager?.apply {
-//            // Indexing is disabled by default
-//            enableIndexAutoCreation()
-//        } ?: println("indexManager is null")
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    private fun navigationBottom() {
-        viewBinding.bottomNav.apply {
-            navController?.let {
-                setupWithNavController(it)
-            }
-            setOnItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.fag_enter -> {
-                        navController?.navigate(R.id.fag_enter)
-                        true
-                    }
-
-                    R.id.fag_calender -> {
-                        navController?.navigate(R.id.fag_calender)
-                        true
-                    }
-                    R.id.fag_report -> {
-                        navController?.navigate(R.id.fag_report)
-                        true
-                    }
-                    R.id.fag_notebook -> {
-                        // Show option dialog to choose between Chrome Custom Tabs or WebView
-                        NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
-                        true
-                    }
-                    R.id.fagg_profile -> {
-                        viewBinding.drawer.openDrawer(GravityCompat.END)
-                        false
-                    }
-                    else -> {
-                        viewBinding.drawer.openDrawer(GravityCompat.END)
-                        false
-                    }
-                }
-            }
-            navController?.addOnDestinationChangedListener{_,des,_ ->
-                when(des.id) {
-                    R.id.fag_enter,
-                    R.id.fag_calender,
-                    R.id.fag_report,
-                    R.id.fag_profile -> {
-                        this@HomeActivity.viewBinding.bottomNav.visibility = View.VISIBLE
-                    }
-                    else -> {
-                        this@HomeActivity.viewBinding.bottomNav.visibility = View.GONE
-                    }
-                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
-    fun setUpDrawerLayout() {
+
+    private fun setupDrawerLayout() {
         headerDrawer.lifecycleOwner = this
         viewModel.getUserNameCurrent()
         headerDrawer.viewModel = viewModel
         viewBinding.navigationViewDrawer.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.item_drawer_home -> {
-                    navController?.navigate(R.id.fag_enter)
+                    navController?.navigate(R.id.frag_home)
+                    true
+                }
+                R.id.item_drawer_enter -> {
+                    navController?.navigate(R.id.frag_enter)
                     true
                 }
                 R.id.item_drawer_calendar -> {
-                    navController?.navigate(R.id.fag_calender)
+                    navController?.navigate(R.id.frag_calendar)
                     true
                 }
                 R.id.item_drawer_report -> {
-                    navController?.navigate(R.id.fag_report)
+                    navController?.navigate(R.id.frag_report)
                     true
                 }
 
@@ -175,32 +198,30 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>(){
                     true
                 }
                 R.id.item_drawer_account -> {
-                    navController?.navigate(R.id.fag_profile)
+                    navController?.navigate(R.id.frag_profile)
                     true
                 }
-                else -> {
-                    false
-                }
+                else -> false
             }
             viewBinding.drawer.closeDrawers()
             true
         }
     }
+
     fun signOutFromGoogle() {
-        FirebaseAuth.getInstance().signOut()
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-        val googleSignInClient = GoogleSignIn.getClient(this, gso)
-        googleSignInClient.signOut().addOnCompleteListener { task: Task<Void> ->
-            if (task.isSuccessful) {
-                val intent = Intent(this, AuthenticationActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
+        try {
+            FirebaseAuth.getInstance().signOut()
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+            googleSignInClient.signOut().addOnCompleteListener { task: Task<Void> ->
                 val intent = Intent(this, AuthenticationActivity::class.java)
                 startActivity(intent)
                 finish()
             }
+        } catch (e: Exception) {
+            // Nếu có lỗi, vẫn chuyển về màn Authentication
+            startActivity(Intent(this, AuthenticationActivity::class.java))
+            finish()
         }
     }
-
 }
