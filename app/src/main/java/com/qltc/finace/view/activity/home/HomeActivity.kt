@@ -190,7 +190,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
                     true
                 }
                 R.id.item_drawer_infor -> {
-                    // Handle information display
+                    navController?.navigate(R.id.frag_app_information)
                     true
                 }
                 R.id.item_drawer_faq -> {

@@ -316,7 +316,7 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         }
         
         val barData = BarData(dataSet).apply {
-            barWidth = 0.5f  // Tăng độ rộng của cột để khớp với nhãn
+            barWidth = 0.5f  // Điều chỉnh độ rộng của cột để căn chỉnh với nhãn
         }
         
         viewBinding.barChart.apply {
@@ -324,29 +324,12 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             xAxis.apply {
                 setDrawLabels(false)  // Tắt nhãn mặc định vì chúng ta sử dụng TextView
                 setDrawGridLines(false)
-                setDrawAxisLine(false)
+                // Đảm bảo cột nằm chính giữa phần TextView tương ứng
+                setCenterAxisLabels(false)
+                setAvoidFirstLastClipping(true)
             }
-            
-            axisLeft.apply {
-                setDrawGridLines(true)
-                setDrawAxisLine(false)
-                setDrawZeroLine(false)
-            }
-            
-            axisRight.isEnabled = false
-            
-            description.isEnabled = false
-            legend.isEnabled = false
-            
-            // Điều chỉnh padding để khớp với LinearLayout chứa các TextView
-            setExtraOffsets(0f, 0f, 0f, 0f)
-            
-            // Đảm bảo số lượng cột hiển thị đúng với số lượng tháng
-            setVisibleXRangeMaximum(6f)
-            
-            // Chỉnh animation
-            animateY(500)
-            
+            // Đảm bảo vị trí của các cột trùng với các TextView
+            setExtraOffsets(8f, 0f, 8f, 0f)
             invalidate()  // Refresh biểu đồ
         }
     }

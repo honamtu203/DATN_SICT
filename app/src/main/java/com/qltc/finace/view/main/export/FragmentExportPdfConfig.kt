@@ -41,6 +41,7 @@ import com.qltc.finace.view.main.report.chart.PercentFormatter
 import android.graphics.Color
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
 class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, ExportPdfViewModel>(), ExportPdfListener {
@@ -728,6 +729,21 @@ class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, Exp
     }
     
     override fun onBackClicked() {
-        requireActivity().onBackPressed()
+        try {
+            findNavController().popBackStack()
+        } catch (e: Exception) {
+            // Fallback nếu popBackStack() gặp lỗi
+            try {
+                findNavController().popBackStack(R.id.frag_home, false)
+            } catch (e2: Exception) {
+                try {
+                    // Phương pháp thay thế cuối cùng
+                    findNavController().navigate(R.id.frag_home)
+                } catch (e3: Exception) {
+                    // Ghi log lỗi
+                    Log.e("FragmentExportPdfConfig", "Không thể điều hướng quay lại: ${e3.message}")
+                }
+            }
+        }
     }
 } 

@@ -110,7 +110,22 @@ class FragmentListData : BaseFragment<FragmentListDataFromCategoryBinding, Repor
     }
 
     override fun onClickBack() {
-        findNavController().popBackStack()
+        try {
+            findNavController().popBackStack()
+        } catch (e: Exception) {
+            // Fallback nếu popBackStack() gặp lỗi
+            try {
+                findNavController().popBackStack(R.id.frag_home, false)
+            } catch (e2: Exception) {
+                try {
+                    // Phương pháp thay thế cuối cùng
+                    findNavController().navigate(R.id.frag_home)
+                } catch (e3: Exception) {
+                    // Ghi log lỗi
+                    e3.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun loadCategoryData() {

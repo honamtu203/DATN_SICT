@@ -154,7 +154,12 @@ class FragmentWebView : BaseFragment<FragmentWebviewBinding, WebViewViewModel>()
         if (viewBinding.webView.canGoBack()) {
             viewBinding.webView.goBack()
         } else {
-            findNavController().navigate(R.id.frag_home)
+            try {
+                findNavController().popBackStack()
+            } catch (e: Exception) {
+                // Fallback if popBackStack fails
+                findNavController().popBackStack(R.id.frag_home, false)
+            }
         }
     }
 
@@ -163,12 +168,28 @@ class FragmentWebView : BaseFragment<FragmentWebviewBinding, WebViewViewModel>()
     }
 
     override fun onCloseClick() {
-        findNavController().navigate(R.id.frag_enter)
+        try {
+            // Thoát hoàn toàn khỏi WebView và quay trở về FragmentHome ngay lập tức
+            findNavController().popBackStack(R.id.frag_home, false)
+        } catch (e: Exception) {
+            // Nếu có lỗi, thử phương thức thay thế
+            try {
+                findNavController().navigate(R.id.frag_home)
+            } catch (e2: Exception) {
+                // Nếu cả hai phương thức đều thất bại, thử cách cuối cùng
+                activity?.supportFragmentManager?.popBackStack()
+            }
+        }
     }
 
     override fun onDestroyView() {
+        // Clean up WebView to prevent memory leaks
+        viewBinding.webView.apply {
+            stopLoading()
+            clearHistory()
+            clearCache(true)
+            destroy()
+        }
         super.onDestroyView()
-        // Clean up WebView
-        viewBinding.webView.destroy()
     }
 } 

@@ -88,5 +88,9 @@
         android:id="@+id/frag_expense"
         android:name="com.qltc.finace.view.main.enter.expense.FragmentExpense"
         android:label="FragmentExpense" />
+    <fragment
+        android:id="@+id/frag_app_information"
+        android:name="com.qltc.finace.view.main.information.AppInformationFragment"
+        android:label="Thông tin ứng dụng" />
 
 </navigation>

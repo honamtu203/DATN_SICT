@@ -144,7 +144,22 @@ class FragmentChangePassword : BaseFragment<FragmentChangePasswordBinding, Chang
     }
 
     override fun onBackClick() {
-        findNavController().navigateUp()
+        try {
+            findNavController().popBackStack()
+        } catch (e: Exception) {
+            // Fallback nếu popBackStack() gặp lỗi
+            try {
+                findNavController().popBackStack(R.id.frag_profile, false)
+            } catch (e2: Exception) {
+                try {
+                    // Phương pháp thay thế cuối cùng
+                    findNavController().navigate(R.id.frag_profile)
+                } catch (e3: Exception) {
+                    // Ghi log lỗi
+                    e3.printStackTrace()
+                }
+            }
+        }
     }
 
     override fun onConfirmClick() {
