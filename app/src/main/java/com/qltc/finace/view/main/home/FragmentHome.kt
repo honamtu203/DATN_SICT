@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,6 +25,7 @@ import com.qltc.finace.view.adapter.AdapterTopCategory
 import com.qltc.finace.view.main.calendar.FinancialRecord
 import com.qltc.finace.data.Resource
 import java.text.NumberFormat
+import java.time.YearMonth
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -119,6 +121,14 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             tvEmptyTransactions.text = getString(R.string.no_transactions)
             tvEmptyCategories.text = getString(R.string.no_categories)
         }
+
+        // Setup Observer for data refresh
+        viewModel.isDataRefreshed.observe(viewLifecycleOwner) { isRefreshed ->
+            if (isRefreshed) {
+                // Cập nhật biểu đồ khi dữ liệu được làm mới
+                updateBarChart(viewModel.selectedTabIndex == HomeViewModel.TAB_EXPENSE)
+            }
+        }
     }
 
     private fun observeData() {
@@ -202,6 +212,9 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         } else {
             viewModel.refreshIncomeData()
         }
+        
+        // Cập nhật biểu đồ theo tab đã chọn
+        updateBarChart(position == HomeViewModel.TAB_EXPENSE)
     }
 
     override fun onViewAllTransactionsClick() {
@@ -223,7 +236,7 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         safeNavigate(
             R.id.frag_enter,
             Bundle().apply {
-                putInt("selected_tab", 1) // 1 for expense tab
+                putInt("selected_tab", 0) // 0 for income tab
             }
         )
     }
@@ -232,7 +245,7 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         safeNavigate(
             R.id.frag_enter,
             Bundle().apply {
-                putInt("selected_tab", 0) // 1 for expense tab
+                putInt("selected_tab", 1) // 1 for expense tab
             }
         )
 
@@ -240,6 +253,102 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun onClickCategory(item: CategoryOverView) {
         // Handle click on top category item
+    }
+
+    /**
+     * Cập nhật BarChart để hiển thị thu nhập hoặc chi tiêu 6 tháng gần nhất
+     * 
+     * @param isExpenseTab true nếu đang hiển thị tab Chi tiêu, false nếu đang hiển thị tab Thu nhập
+     */
+    private fun updateBarChart(isExpenseTab: Boolean) {
+        val entries = ArrayList<BarEntry>()
+        val currentMonth = YearMonth.now()
+        val months = ArrayList<String>()
+        
+        // Tạo dữ liệu cho 6 tháng gần nhất
+        for (i in 5 downTo 0) {
+            val monthToShow = currentMonth.minusMonths(i.toLong())
+            val value = if (isExpenseTab) {
+                viewModel.getMonthlyExpense(monthToShow)
+            } else {
+                viewModel.getMonthlyIncome(monthToShow)
+            }
+            entries.add(BarEntry((5-i).toFloat(), value.toFloat()))
+            // Format tháng dạng "TX"
+            months.add("T${monthToShow.monthValue}")
+        }
+        
+        // Cập nhật các TextView hiển thị tháng
+        viewBinding.apply {
+            // Danh sách các TextView để dễ thao tác
+            val monthViews = listOf(tvMonth1, tvMonth2, tvMonth3, tvMonth4, tvMonth5, tvMonth6)
+            
+            // Cập nhật tất cả TextView
+            for (i in months.indices) {
+                monthViews[i].apply {
+                    text = months[i]
+                    // Đặt tháng hiện tại màu orange và các tháng khác màu đen
+                    if (months[i] == "T${currentMonth.monthValue}") {
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                        setTypeface(null, android.graphics.Typeface.BOLD)
+                    } else {
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                        setTypeface(null, android.graphics.Typeface.NORMAL)
+                    }
+                }
+            }
+        }
+        
+        val dataSet = BarDataSet(entries, "").apply {
+            color = if (isExpenseTab) {
+                ContextCompat.getColor(requireContext(), R.color.expense_color) 
+            } else {
+                ContextCompat.getColor(requireContext(), R.color.primary_color)
+            }
+            valueTextColor = Color.GRAY
+            valueTextSize = 10f
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    if (value < 1000) return ""  // Không hiển thị giá trị quá nhỏ để tránh lộn xộn
+                    return numberFormat.format(value.toLong())
+                }
+            }
+        }
+        
+        val barData = BarData(dataSet).apply {
+            barWidth = 0.5f  // Tăng độ rộng của cột để khớp với nhãn
+        }
+        
+        viewBinding.barChart.apply {
+            data = barData
+            xAxis.apply {
+                setDrawLabels(false)  // Tắt nhãn mặc định vì chúng ta sử dụng TextView
+                setDrawGridLines(false)
+                setDrawAxisLine(false)
+            }
+            
+            axisLeft.apply {
+                setDrawGridLines(true)
+                setDrawAxisLine(false)
+                setDrawZeroLine(false)
+            }
+            
+            axisRight.isEnabled = false
+            
+            description.isEnabled = false
+            legend.isEnabled = false
+            
+            // Điều chỉnh padding để khớp với LinearLayout chứa các TextView
+            setExtraOffsets(0f, 0f, 0f, 0f)
+            
+            // Đảm bảo số lượng cột hiển thị đúng với số lượng tháng
+            setVisibleXRangeMaximum(6f)
+            
+            // Chỉnh animation
+            animateY(500)
+            
+            invalidate()  // Refresh biểu đồ
+        }
     }
 
 } 

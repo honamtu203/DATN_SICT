@@ -408,61 +408,62 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_marginTop="4dp">
+                                android:gravity="end"
+                                android:paddingStart="15dp"
+                                android:paddingEnd="20dp">
 
                                 <TextView
                                     android:id="@+id/tv_month_1"
-                                    android:layout_width="0dp"
+                                    android:layout_width="25dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:textSize="12sp"
+                                    android:layout_marginStart="15dp"
                                     tools:text="T6"/>
 
                                 <TextView
                                     android:id="@+id/tv_month_2"
-                                    android:layout_width="0dp"
+                                    android:layout_width="25dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:textSize="12sp"
+                                    android:layout_marginStart="15dp"
                                     tools:text="T7"/>
 
                                 <TextView
                                     android:id="@+id/tv_month_3"
-                                    android:layout_width="0dp"
+                                    android:layout_width="25dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:textSize="12sp"
+                                    android:layout_marginStart="15dp"
                                     tools:text="T8"/>
 
                                 <TextView
                                     android:id="@+id/tv_month_4"
-                                    android:layout_width="0dp"
+                                    android:layout_width="25dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:textSize="12sp"
+                                    android:layout_marginStart="15dp"
                                     tools:text="T9"/>
 
                                 <TextView
                                     android:id="@+id/tv_month_5"
-                                    android:layout_width="0dp"
+                                    android:layout_width="25dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:textSize="12sp"
+                                    android:layout_marginStart="15dp"
                                     tools:text="T10"/>
 
                                 <TextView
                                     android:id="@+id/tv_month_6"
-                                    android:layout_width="0dp"
+                                    android:layout_width="25dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:textSize="12sp"
-                                    android:textStyle="bold"
+                                    android:layout_marginStart="15dp"
                                     tools:text="T11"/>
                             </LinearLayout>
                         </LinearLayout>

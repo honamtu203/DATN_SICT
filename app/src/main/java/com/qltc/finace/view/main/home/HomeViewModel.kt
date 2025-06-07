@@ -40,6 +40,9 @@ class HomeViewModel @Inject constructor(
     private var listCategory = mutableListOf<Category>()
     private var mapCategory: Map<String, Category> = mutableMapOf()
 
+    private val _isDataRefreshed = MutableLiveData<Boolean>()
+    val isDataRefreshed: LiveData<Boolean> = _isDataRefreshed
+
     private val _currentBalance = MutableLiveData<Long>(0)
     val currentBalance: LiveData<Long> = _currentBalance
 
@@ -110,6 +113,9 @@ class HomeViewModel @Inject constructor(
 
                 // Restore the selected tab's data
                 selectTab(selectedTabIndex)
+                
+                // Thông báo dữ liệu đã được làm mới
+                _isDataRefreshed.value = true
             }
         }
     }
@@ -272,6 +278,9 @@ class HomeViewModel @Inject constructor(
                 if (selectedTabIndex == TAB_EXPENSE) {
                     _topCategories.value = _topExpenseCategories.value
                 }
+                
+                // Thông báo dữ liệu đã được làm mới
+                _isDataRefreshed.value = true
             }
         }
     }
@@ -295,6 +304,9 @@ class HomeViewModel @Inject constructor(
                 if (selectedTabIndex == TAB_INCOME) {
                     _topCategories.value = _topIncomeCategories.value
                 }
+                
+                // Thông báo dữ liệu đã được làm mới
+                _isDataRefreshed.value = true
             }
         }
     }
@@ -390,5 +402,23 @@ class HomeViewModel @Inject constructor(
             .take(3)
 
         _topIncomeCategories.value = topIncomeCategoriesList
+    }
+
+    /**
+     * Lấy tổng chi tiêu trong một tháng cụ thể
+     */
+    fun getMonthlyExpense(yearMonth: YearMonth): Long {
+        return listExpense
+            .filter { YearMonth.from(it.date.toLocalDate()) == yearMonth }
+            .sumOf { it.expense ?: 0L }
+    }
+    
+    /**
+     * Lấy tổng thu nhập trong một tháng cụ thể
+     */
+    fun getMonthlyIncome(yearMonth: YearMonth): Long {
+        return listIncome
+            .filter { YearMonth.from(it.date.toLocalDate()) == yearMonth }
+            .sumOf { it.income ?: 0L }
     }
 } 
