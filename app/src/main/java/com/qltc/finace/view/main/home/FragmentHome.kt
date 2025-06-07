@@ -20,6 +20,7 @@ import com.google.android.material.tabs.TabLayout
 import com.qltc.finace.view.adapter.AdapterTotalCategory
 import com.qltc.finace.data.entity.CategoryOverView
 import com.qltc.finace.view.adapter.AdapterExpenseIncomeReport
+import com.qltc.finace.view.adapter.AdapterTopCategory
 import com.qltc.finace.view.main.calendar.FinancialRecord
 import com.qltc.finace.data.Resource
 import java.text.NumberFormat
@@ -28,21 +29,12 @@ import java.util.Locale
 @AndroidEntryPoint
 class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     HomeListener,
-    AdapterExpenseIncomeReport.OnClickListener {
+    AdapterExpenseIncomeReport.OnClickListener,
+    AdapterTopCategory.OnClickListener {
     
     override val layoutID: Int = R.layout.fragment_home
     override val viewModel: HomeViewModel by viewModels()
-    private val categoryAdapter by lazy { 
-        AdapterTotalCategory(object : AdapterTotalCategory.OnClickListener {
-            override fun onClickItemEI(item: CategoryOverView) {
-                val bundle = Bundle().apply {
-                    putParcelableArrayList("list_record", ArrayList(item.listRecord ?: emptyList()))
-                    putString("title", item.category.title)
-                }
-                findNavController().navigate(R.id.frg_category_detail, bundle)
-            }
-        }) 
-    }
+    private val topCategoryAdapter by lazy { AdapterTopCategory(this) }
     private val adapter by lazy { AdapterExpenseIncomeReport(this) }
 
     private val numberFormat by lazy {
@@ -60,6 +52,14 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun onResume() {
         super.onResume()
         viewModel.refreshData()
+        // Restore the visual state of the tab layout to match the ViewModel
+        val selectedTab = viewBinding.tabOverview.getTabAt(viewModel.selectedTabIndex)
+        if (selectedTab != null) {
+            // We need to select the tab programmatically, but this might not trigger the listener
+            selectedTab.select()
+            // So we also explicitly call onTabSelected to ensure data is refreshed
+            onTabSelected(viewModel.selectedTabIndex)
+        }
     }
 
     private fun setupViews() {
@@ -69,7 +69,7 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             listener = this@FragmentHome
             rvTopCategories.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = categoryAdapter
+                adapter = topCategoryAdapter
             }
 
             rvRecentTransactions.apply {
@@ -138,6 +138,12 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                 viewBinding.progressBudget.progress = progress
             }
 
+            // Observe top categories
+            topCategories.observe(viewLifecycleOwner) { categories ->
+                topCategoryAdapter.submitList(categories)
+                viewBinding.tvEmptyCategories.isVisible = categories.isEmpty()
+            }
+
             remainingBudget.observe(viewLifecycleOwner) { remaining: Long ->
                 viewBinding.tvRemainingAmount.text = remaining.toString()
             }
@@ -187,7 +193,15 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
     override fun onTabSelected(position: Int) {
-        // Handle tab selection if needed
+        // Update the selected tab in the ViewModel
+        viewModel.selectTab(position)
+        
+        // Force a refresh of the specific data for this tab
+        if (position == HomeViewModel.TAB_EXPENSE) {
+            viewModel.refreshExpenseData()
+        } else {
+            viewModel.refreshIncomeData()
+        }
     }
 
     override fun onViewAllTransactionsClick() {
@@ -203,22 +217,29 @@ class FragmentHome : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         )
     }
 
-    override fun onIncomeCardClick() {
-        safeNavigate(
-            R.id.frag_enter,
-            Bundle().apply {
-                putInt("selected_tab", 0) // 0 for income tab
-            }
-        )
-    }
 
-    override fun onExpenseCardClick() {
+    // Tuyệt đối không sửa
+    override fun onIncomeCardClick() {
         safeNavigate(
             R.id.frag_enter,
             Bundle().apply {
                 putInt("selected_tab", 1) // 1 for expense tab
             }
         )
+    }
+    // Tuyệt đối không sửa
+    override fun onExpenseCardClick() {
+        safeNavigate(
+            R.id.frag_enter,
+            Bundle().apply {
+                putInt("selected_tab", 0) // 1 for expense tab
+            }
+        )
+
+    }
+
+    override fun onClickCategory(item: CategoryOverView) {
+        // Handle click on top category item
     }
 
 } 

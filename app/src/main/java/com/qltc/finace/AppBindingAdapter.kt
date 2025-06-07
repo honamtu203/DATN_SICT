@@ -89,20 +89,17 @@ object AppBindingAdapter {
     @BindingAdapter("setMoney")
     fun TextView.setMoney(item : CategoryOverView) {
         val numberFormat = NumberFormat.getInstance(Locale("vi", "VN"))
-        var moneyBuilder : String = ""
+        var moneyBuilder = ""
         try {
-            var money: String = numberFormat.format(item.total)
+            val money: String = numberFormat.format(item.total)
             if (item.category.type == Fb.CategoryExpense) {
                 moneyBuilder += "- $money đ"
                 this.text = moneyBuilder
                 this.setTextColorRes(R.color.red_d61c1c)
-                return
-            }
-            else {
+            } else {
                 moneyBuilder += "+ $money đ"
                 this.text = moneyBuilder
                 this.setTextColorRes(R.color.green_2D9849)
-                return
             }
         }
         catch (_: Exception) {}

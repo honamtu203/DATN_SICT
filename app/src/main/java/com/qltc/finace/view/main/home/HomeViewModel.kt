@@ -12,6 +12,8 @@ import com.qltc.finace.data.repository.local.expense.ExpenseRepository
 import com.qltc.finace.data.repository.local.income.InComeRepository
 import com.qltc.finace.extension.toLocalDate
 import com.qltc.finace.view.main.calendar.FinancialRecord
+import com.qltc.finace.data.entity.CategoryOverView
+import com.qltc.finace.data.Fb
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +29,12 @@ class HomeViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : BaseViewModel() {
 
+    companion object {
+        const val TAB_INCOME = 0
+        const val TAB_EXPENSE = 1
+    }
+
+    var selectedTabIndex: Int = TAB_INCOME
     private var listExpense = mutableListOf<Expense>()
     private var listIncome = mutableListOf<Income>()
     private var listCategory = mutableListOf<Category>()
@@ -43,6 +51,12 @@ class HomeViewModel @Inject constructor(
 
     private val _recentTransactions = MutableLiveData<List<FinancialRecord>>(emptyList())
     val recentTransactions: LiveData<List<FinancialRecord>> = _recentTransactions
+
+    private val _topExpenseCategories = MutableLiveData<List<CategoryOverView>>(emptyList())
+    private val _topIncomeCategories = MutableLiveData<List<CategoryOverView>>(emptyList())
+    
+    private val _topCategories = MutableLiveData<List<CategoryOverView>>(emptyList())
+    val topCategories: LiveData<List<CategoryOverView>> = _topCategories
 
     private val _isBalanceVisible = MutableLiveData(true)
     val isBalanceVisible: LiveData<Boolean> = _isBalanceVisible
@@ -80,10 +94,22 @@ class HomeViewModel @Inject constructor(
 
                 loadUsername()
                 updateCurrentMonthData()
+                
+                // Clear previous category data before recalculating
+                _topExpenseCategories.value = emptyList()
+                _topIncomeCategories.value = emptyList()
+                
+                // These methods depend on mapCategory, so they should be called after it's initialized
+                updateTopExpenseCategories()
+                updateTopIncomeCategories()
+                
                 updateRecentTransactions()
                 calculateTotalBalance()
                 calculateBudgetProgress()
                 calculateBalanceChange()
+
+                // Restore the selected tab's data
+                selectTab(selectedTabIndex)
             }
         }
     }
@@ -211,6 +237,14 @@ class HomeViewModel @Inject constructor(
         _remainingDays.value = if (remainingDays >= 0) remainingDays else 0
     }
 
+    fun selectTab(position: Int) {
+        selectedTabIndex = position
+        when (position) {
+            TAB_EXPENSE -> _topCategories.value = _topExpenseCategories.value
+            else -> _topCategories.value = _topIncomeCategories.value
+        }
+    }
+
     fun toggleBalanceVisibility() {
         _isBalanceVisible.value = !(_isBalanceVisible.value ?: true)
     }
@@ -219,8 +253,142 @@ class HomeViewModel @Inject constructor(
         loadData()
     }
 
+    /**
+     * Refreshes only the expense data, optimized for when the expense tab is active
+     */
+    fun refreshExpenseData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val lExpense = expenseRepository.getAllExpense()
+            
+            withContext(Dispatchers.Main) {
+                listExpense = lExpense
+                updateTopExpenseCategories()
+                updateRecentTransactions()
+                calculateTotalBalance()
+                calculateBudgetProgress()
+                calculateBalanceChange()
+                
+                // Update the UI with expense categories if expense tab is selected
+                if (selectedTabIndex == TAB_EXPENSE) {
+                    _topCategories.value = _topExpenseCategories.value
+                }
+            }
+        }
+    }
+    
+    /**
+     * Refreshes only the income data, optimized for when the income tab is active
+     */
+    fun refreshIncomeData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val lIncome = incomeRepository.getAllIncome()
+            
+            withContext(Dispatchers.Main) {
+                listIncome = lIncome
+                updateTopIncomeCategories()
+                updateRecentTransactions()
+                calculateTotalBalance()
+                calculateBudgetProgress()
+                calculateBalanceChange()
+                
+                // Update the UI with income categories if income tab is selected
+                if (selectedTabIndex == TAB_INCOME) {
+                    _topCategories.value = _topIncomeCategories.value
+                }
+            }
+        }
+    }
+
     private fun loadUsername() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         _username.value = currentUser?.displayName ?: currentUser?.email ?: ""
+    }
+
+    private fun updateTopExpenseCategories() {
+        val currentMonth = YearMonth.now()
+        
+        // Ensure mapCategory is initialized
+        if (mapCategory.isEmpty()) {
+            mapCategory = listCategory.associateBy { it.idCategory ?: "otherCategory" }
+        }
+        
+        val topExpenseCategoriesList = listExpense
+            .filter { YearMonth.from(it.date.toLocalDate()) == currentMonth }
+            .groupBy { it.idCategory }
+            .map { (categoryId, expenses) ->
+                val totalAmount = expenses.sumOf { it.expense ?: 0L }
+                val category = mapCategory[categoryId] 
+                    ?: listCategory.find { it.idCategory == categoryId } 
+                    ?: Category(idCategory = categoryId, title = "Không rõ", type = Fb.CategoryExpense)
+                
+                // Create financial records for this category
+                val records = expenses.map { expense ->
+                    FinancialRecord(
+                        idCategory = expense.idCategory,
+                        id = expense.idExpense,
+                        idUser = expense.idUser,
+                        noteExpenseIncome = expense.note,
+                        date = expense.date,
+                        money = expense.expense,
+                        typeExpenseOrIncome = FinancialRecord.TYPE_EXPENSE,
+                        titleCategory = category.title,
+                        icon = category.icon
+                    )
+                }
+                
+                CategoryOverView(
+                    category = category,
+                    total = totalAmount,
+                    listRecord = records // Include records instead of empty list
+                )
+            }
+            .sortedByDescending { it.total }
+            .take(3)
+
+        _topExpenseCategories.value = topExpenseCategoriesList
+    }
+
+    private fun updateTopIncomeCategories() {
+        val currentMonth = YearMonth.now()
+        
+        // Ensure mapCategory is initialized
+        if (mapCategory.isEmpty()) {
+            mapCategory = listCategory.associateBy { it.idCategory ?: "otherCategory" }
+        }
+        
+        val topIncomeCategoriesList = listIncome
+            .filter { YearMonth.from(it.date.toLocalDate()) == currentMonth }
+            .groupBy { it.idCategory }
+            .map { (categoryId, incomes) ->
+                val totalAmount = incomes.sumOf { it.income ?: 0L }
+                val category = mapCategory[categoryId] 
+                    ?: listCategory.find { it.idCategory == categoryId } 
+                    ?: Category(idCategory = categoryId, title = "Không rõ", type = Fb.CategoryIncome)
+                
+                // Create financial records for this category
+                val records = incomes.map { income ->
+                    FinancialRecord(
+                        idCategory = income.idCategory,
+                        id = income.idIncome,
+                        idUser = income.idUser,
+                        noteExpenseIncome = income.note,
+                        date = income.date,
+                        money = income.income,
+                        typeExpenseOrIncome = FinancialRecord.TYPE_INCOME,
+                        titleCategory = category.title,
+                        icon = category.icon
+                    )
+                }
+                
+                CategoryOverView(
+                    category = category,
+                    total = totalAmount,
+                    listRecord = records // Include records instead of empty list
+                )
+            }
+            .sortedByDescending { it.total }
+            .take(3)
+
+        _topIncomeCategories.value = topIncomeCategoriesList
     }
 } 
