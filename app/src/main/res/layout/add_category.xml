@@ -5,10 +5,10 @@
     <data>
         <variable
             name="listener"
-            type="com.qltc.finace.view.main.home.add_category.AddCategoryListener" />
+            type="com.qltc.finace.view.main.enter.add_category.AddCategoryListener" />
         <variable
             name="viewModel"
-            type="com.qltc.finace.view.main.home.add_category.AddCategoryViewModel" />
+            type="com.qltc.finace.view.main.enter.add_category.AddCategoryViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

@@ -85,4 +85,11 @@
     <string name="apply">Áp dụng</string>
     <string name="default_user_name">Người dùng</string>
     <string name="enter_title">Nhập thu chi</string>
+
+    <!-- Home Fragment -->
+    <string name="welcome_user">Xin chào, %s</string>
+    <string name="no_transactions">Chưa có giao dịch nào</string>
+    <string name="no_categories">Chưa có danh mục nào</string>
+    <string name="remaining_days">%d ngày</string>
+    <string name="balance_change_format">%+.1f%% so với tháng trước</string>
 </resources>

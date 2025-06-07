@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.qltc.finace.view.main.home.ShareEnterViewModel" />
+            type="com.qltc.finace.view.main.enter.ShareEnterViewModel" />
         <variable
             name="listener"
-            type="com.qltc.finace.view.main.home.income.IncomeListener" />
+            type="com.qltc.finace.view.main.enter.income.IncomeListener" />
     </data>
     <ScrollView
         android:layout_width="match_parent"

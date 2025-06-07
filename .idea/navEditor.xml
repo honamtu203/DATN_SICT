@@ -185,6 +185,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="frag_income">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="14" />
+                            <option name="y" value="1344" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="frag_notebook">
                     <value>
                       <LayoutPositions>
@@ -228,6 +240,18 @@
                           <Point>
                             <option name="x" value="12" />
                             <option name="y" value="1037" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="fragmentExpense">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="242" />
+                            <option name="y" value="1339" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -1,10 +1,10 @@
 package com.qltc.finace.view.main.home
 
 interface HomeListener {
-    fun onNotificationClick()
     fun onToggleBalanceClick()
-    fun onTabSelected(position: Int)
-    fun onViewAllTransactionsClick()
+    fun onNotificationClick()
     fun onIncomeCardClick()
     fun onExpenseCardClick()
+    fun onViewAllTransactionsClick()
+    fun onTabSelected(position: Int)
 } 

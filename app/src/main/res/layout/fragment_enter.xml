@@ -6,10 +6,10 @@
     <data>
         <variable
             name="listener"
-            type="com.qltc.finace.view.main.home.EnterListener" />
+            type="com.qltc.finace.view.main.enter.EnterListener" />
         <variable
             name="viewModel"
-            type="com.qltc.finace.view.main.home.ShareEnterViewModel" />
+            type="com.qltc.finace.view.main.enter.ShareEnterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -569,6 +569,7 @@
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                                     android:textStyle="bold"
+                                    android:textColor="@color/red"
                                     setMoneyExpense="@{viewModel.monthlyExpense}"
                                     tools:text="3,750,000 đ" />
 
@@ -592,6 +593,7 @@
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                                     android:textStyle="bold"
+                                    android:textColor="@color/green_2D9849"
                                     setMoneyBalance="@{viewModel.remainingBudget}"
                                     tools:text="1,250,000 đ" />
 
