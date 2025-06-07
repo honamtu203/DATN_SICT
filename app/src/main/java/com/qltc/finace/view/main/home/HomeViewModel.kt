@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.YearMonth
 import javax.inject.Inject
+import com.google.firebase.auth.FirebaseAuth
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -77,6 +78,7 @@ class HomeViewModel @Inject constructor(
                 listCategory = lCategory
                 mapCategory = lCategory.associateBy { it.idCategory ?: "otherCategory" }
 
+                loadUsername()
                 updateCurrentMonthData()
                 updateRecentTransactions()
                 calculateTotalBalance()
@@ -215,5 +217,10 @@ class HomeViewModel @Inject constructor(
 
     fun refreshData() {
         loadData()
+    }
+
+    private fun loadUsername() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        _username.value = currentUser?.displayName ?: currentUser?.email ?: ""
     }
 } 

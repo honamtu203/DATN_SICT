@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // User document và các subcollections (CategoryExpense, CategoryIncome)
+    match /User/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /CategoryExpense/{categoryId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /CategoryIncome/{categoryId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Expense collection – kiểm tra theo field idUser
+    match /Expense/{expenseId} {
+      allow read, write: if request.auth != null &&
+        request.auth.uid == resource.data.idUser;
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.idUser;
+    }
+
+    // Income collection – kiểm tra theo field idUser
+    match /Income/{incomeId} {
+      allow read, write: if request.auth != null &&
+        request.auth.uid == resource.data.idUser;
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.idUser;
+    }
+
+    // Firestore document theo cấu trúc mới: users/{userId}
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Budgets là subcollection của users
+      match /budgets/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Firestore document theo cấu trúc mới: transactions/{userId}/records/{docId}
+    match /transactions/{userId}/records/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Public read-only categories
+    match /categories/{categoryId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}
