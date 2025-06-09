@@ -33,5 +33,9 @@
         android:name="com.qltc.finace.view.authentication.otp.OtpFragment"/>
     <fragment
         android:id="@+id/fag_sign_up"
-        android:name="com.qltc.finace.view.authentication.sign_up.SignUpFragment"/>
+        android:name="com.qltc.finace.view.authentication.sign_up.SignUpFragment">
+        <action
+            android:id="@+id/sign_up_to_login_phone"
+            app:destination="@id/fag_login_phone" />
+    </fragment>
 </navigation>

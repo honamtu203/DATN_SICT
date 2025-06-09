@@ -143,6 +143,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding,SignInViewModel>(),Sig
     override fun signUpWithEmail() {
         viewModel.signInWithEmail{success, message ->
             if (success) {
+                // For normal sign-in with email, always pass false to avoid adding duplicate categories
                 navigateActivityHome(false)
             } else {
                 displayToast(message)

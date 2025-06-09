@@ -12,8 +12,10 @@ import com.qltc.finace.base.BaseFragment
 import com.qltc.finace.databinding.FragmentLoginPhoneBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class LoginPhoneFragment() : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneViewModel>(),
     LoginPhoneListener {
     override val viewModel: LoginPhoneViewModel by viewModels()

@@ -61,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="24dp"
             app:boxCornerRadiusBottomEnd="@dimen/dp10"
             app:boxCornerRadiusBottomStart="@dimen/dp10"
             app:boxCornerRadiusTopEnd="@dimen/dp10"
@@ -70,24 +70,24 @@
             app:boxStrokeWidth="@dimen/dp1"
             app:counterEnabled="true"
             app:counterMaxLength="6"
-            app:helperTextEnabled="true"
             app:helperText="Nhập mã OTP gồm 6 chữ số"
+            app:helperTextEnabled="true"
             app:helperTextTextColor="@color/orange"
             app:hintTextColor="@color/color_AFB0B6"
-            app:layout_constraintBottom_toTopOf="@+id/login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mã OTP"
                 android:drawableStart="@drawable/ic_pass"
                 android:drawablePadding="@dimen/dp5"
+                android:hint="Mã OTP"
                 android:inputType="number"
-                android:maxLength="6"
                 android:lines="1"
+                android:maxLength="6"
                 android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -97,6 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="24dp"
             android:backgroundTint="@color/orange"
             android:enabled="false"
             android:onClick="@{v->listener.senOtp()}"
@@ -105,11 +106,9 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.582" />
+            app:layout_constraintTop_toBottomOf="@+id/til_otp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView23"
@@ -126,13 +125,13 @@
             app:layout_constraintTop_toBottomOf="@+id/login" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginBottom="30dp"
-            android:orientation="vertical"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/til_otp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -142,21 +141,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:text="Nhập mã xác nhận"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:gravity="center" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:text="Mã OTP đã được gửi tới số điện thoại"
-                android:textSize="16sp"
                 android:textColor="@color/black80"
-                android:gravity="center" />
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/phone"

@@ -48,7 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="16dp"
         app:boxCornerRadiusBottomEnd="@dimen/dp10"
         app:boxCornerRadiusBottomStart="@dimen/dp10"
         app:boxCornerRadiusTopEnd="@dimen/dp10"
@@ -58,17 +58,17 @@
         app:helperTextEnabled="true"
         app:helperTextTextColor="@color/red_d61c1c"
         app:hintTextColor="@color/color_AFB0B6"
-        app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Số điện thoại (+84)"
             android:drawableStart="@drawable/ic_phone_1"
             android:drawablePadding="@dimen/dp5"
+            android:hint="Số điện thoại (+84)"
             android:inputType="phone"
             android:lines="1"
             android:textSize="14sp" />
@@ -80,6 +80,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/orange"
         android:onClick="@{v->listener.loginToHome()}"
         android:paddingVertical="@dimen/dp14"
@@ -87,22 +88,23 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/loading" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="64dp"
         android:text="Nhập vào số điện thoại"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/til_phone"
-        app:layout_constraintStart_toStartOf="@+id/til_phone" />
+        app:layout_constraintEnd_toEndOf="@+id/til_phone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/til_phone"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button8"

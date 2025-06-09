@@ -113,9 +113,11 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel>(), S
     override fun signUp() {
         viewModel.signUp(callback = { success, message ->
             if (success) {
+                // Add default categories and navigate to home
                 viewModel.insertDefaultCategory {
                     Toast.makeText(context, "Đăng ký thành công", Toast.LENGTH_SHORT).show()
-                    navigateToHome(true)
+                    // Pass false to navigateToHome to avoid adding categories twice
+                    navigateToHome(false)
                 }
             } else {
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -124,7 +126,15 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel>(), S
     }
 
     private fun navigateToHome(isNewUser: Boolean = true) {
-        viewModel.insertDefaultCategory {
+        // Only add categories if this is a new user (for Google sign-in)
+        if (isNewUser) {
+            viewModel.insertDefaultCategory {
+                val intent = Intent(getOwnerActivity<AuthenticationActivity>(), HomeActivity::class.java)
+                getOwnerActivity<AuthenticationActivity>()?.startActivity(intent)
+                getOwnerActivity<AuthenticationActivity>()?.finish()
+            }
+        } else {
+            // Skip category initialization since it was done already or not needed
             val intent = Intent(getOwnerActivity<AuthenticationActivity>(), HomeActivity::class.java)
             getOwnerActivity<AuthenticationActivity>()?.startActivity(intent)
             getOwnerActivity<AuthenticationActivity>()?.finish()
@@ -147,7 +157,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, SignUpViewModel>(), S
     }
 
     override fun openSignInPhone() {
-        findNavController().navigate(R.id.sign_in_to_login_phone)
+        findNavController().navigate(R.id.sign_up_to_login_phone)
     }
 
     override fun openApp() {

@@ -8,19 +8,40 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.qltc.finace.base.Constant
 import com.qltc.finace.R
 import com.qltc.finace.base.BaseFragment
+import com.qltc.finace.data.repository.local.category.CategoryRepository
 import com.qltc.finace.databinding.FragmentOtpBinding
 import com.qltc.finace.view.activity.authen.AuthenticationActivity
 import com.qltc.finace.view.activity.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(), OtpListener {
-    override val viewModel: OtpViewModel by viewModels()
+    @Inject
+    lateinit var categoryRepository: CategoryRepository
+
+    // Khởi tạo ViewModel với custom Factory thay vì by viewModels()
+    private val viewModelFactory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+        override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(OtpViewModel::class.java)) {
+                return OtpViewModel(categoryRepository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
+
+    override val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[OtpViewModel::class.java]
+    }
+
     override val layoutID: Int = R.layout.fragment_otp
 
     private var verificationId: String? = null
@@ -113,7 +134,9 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(), OtpListene
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        viewModel.firebaseAuth.signInWithCredential(credential)
+        val auth = FirebaseAuth.getInstance()
+        
+        auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
@@ -122,7 +145,7 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(), OtpListene
                     // Check if this is a new user
                     val isNewUser = task.result.additionalUserInfo?.isNewUser ?: false
                     
-                    // Navigate to home
+                    // Navigate to home 
                     navigateToHome(isNewUser)
                 } else {
                     // Sign in failed
@@ -145,12 +168,12 @@ class OtpFragment : BaseFragment<FragmentOtpBinding, OtpViewModel>(), OtpListene
     }
 
     private fun navigateToHome(isNewUser: Boolean) {
-        // You may want to insert default categories for new users here
-        // viewModel.insertDefaultCategory(isNewUser) { ... }
-        
-        val intent = Intent(requireActivity(), HomeActivity::class.java)
-        startActivity(intent)
-        getOwnerActivity<AuthenticationActivity>()?.finish()
+        // Insert default categories for new users
+        viewModel.insertDefaultCategory(isNewUser) {
+            val intent = Intent(requireActivity(), HomeActivity::class.java)
+            startActivity(intent)
+            getOwnerActivity<AuthenticationActivity>()?.finish()
+        }
     }
 
     override fun backLoginPhone() {
