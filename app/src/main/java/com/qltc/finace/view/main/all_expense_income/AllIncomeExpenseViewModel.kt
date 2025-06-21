@@ -30,6 +30,11 @@ class AllIncomeExpenseViewModel @Inject constructor(
     var dataRcv = MutableLiveData(mutableListOf<FinancialRecord>())
     fun getAll() {
         viewModelScope.launch(Dispatchers.IO) {
+            // Xóa dữ liệu cũ trước khi lấy dữ liệu mới
+            listExpense.clear()
+            listIncome.clear()
+            listCategory.clear()
+            
             val lExpense = expenseRepository.getAllExpense()
             val lIncome = incomeRepository.getAllIncome()
             val lCategory = categoryRepository.getAll()
@@ -45,39 +50,46 @@ class AllIncomeExpenseViewModel @Inject constructor(
     fun prepareData( ){
         viewModelScope.launch(Dispatchers.IO) {
             val list: MutableList<FinancialRecord> = mutableListOf()
+            
+            // Tạo danh sách các bản ghi tài chính từ chi tiêu
             for (item in listExpense) {
-                    list.add(
-                        FinancialRecord(
-                            idCategory = item.idCategory,
-                            id = item.idExpense,
-                            idUser = item.idUser,
-                            noteExpenseIncome = item.note,
-                            date = item.date,
-                            money = item.expense,
-                            typeExpenseOrIncome = FinancialRecord.TYPE_EXPENSE,
-                            titleCategory = mapCategory[item.idCategory]?.title,
-                            icon = mapCategory[item.idCategory]?.icon
-                        )
+                list.add(
+                    FinancialRecord(
+                        idCategory = item.idCategory,
+                        id = item.idExpense,
+                        idUser = item.idUser,
+                        noteExpenseIncome = item.note,
+                        date = item.date,
+                        money = item.expense,
+                        typeExpenseOrIncome = FinancialRecord.TYPE_EXPENSE,
+                        titleCategory = mapCategory[item.idCategory]?.title,
+                        icon = mapCategory[item.idCategory]?.icon
                     )
+                )
             }
+            
+            // Tạo danh sách các bản ghi tài chính từ thu nhập
             for (item in listIncome) {
-                    list.add(
-                        FinancialRecord(
-                            idCategory = item.idCategory,
-                            id = item.idIncome,
-                            idUser = item.idUser,
-                            noteExpenseIncome = item.note,
-                            date = item.date,
-                            money = item.income,
-                            typeExpenseOrIncome = FinancialRecord.TYPE_INCOME,
-                            titleCategory = mapCategory[item.idCategory]?.title,
-                            icon = mapCategory[item.idCategory]?.icon
-                        )
+                list.add(
+                    FinancialRecord(
+                        idCategory = item.idCategory,
+                        id = item.idIncome,
+                        idUser = item.idUser,
+                        noteExpenseIncome = item.note,
+                        date = item.date,
+                        money = item.income,
+                        typeExpenseOrIncome = FinancialRecord.TYPE_INCOME,
+                        titleCategory = mapCategory[item.idCategory]?.title,
+                        icon = mapCategory[item.idCategory]?.icon
                     )
-                }
+                )
+            }
+            
+            // Sắp xếp theo ngày gần nhất trước
+            val sortedList = list.sortedByDescending { it.date }
 
             withContext(Dispatchers.Main) {
-                dataRcv.postValue(list)
+                dataRcv.value = sortedList.toMutableList()
             }
         }
     }

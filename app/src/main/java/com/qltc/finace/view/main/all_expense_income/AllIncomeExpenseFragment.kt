@@ -22,15 +22,21 @@ class AllIncomeExpenseFragment : BaseFragment<FragmentAllDataIncomeExpenseBindin
     private val adapter by lazy { AdapterExpenseIncomeReport(this) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAll()
+        
         viewBinding.apply {
             listener = this@AllIncomeExpenseFragment
             rcv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             rcv.adapter = this@AllIncomeExpenseFragment.adapter
         }
-        viewModel.dataRcv.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        
+        // Quan sát dữ liệu từ ViewModel
+        viewModel.dataRcv.observe(viewLifecycleOwner) { transactions ->
+            adapter.submitList(null) // Xóa danh sách cũ
+            adapter.submitList(transactions) // Cập nhật danh sách mới
         }
+        
+        // Tải dữ liệu mới
+        viewModel.getAll()
     }
 
     override fun onClickItemEI(item: FinancialRecord) {
